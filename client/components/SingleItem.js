@@ -6,6 +6,7 @@ class SingleItem extends React.Component {
 
   componentDidMount() {
     const itemId = this.props.match.params.id
+    console.log(typeof itemId)
     this.props.getSingleItem(itemId)
   }
 
@@ -15,6 +16,9 @@ class SingleItem extends React.Component {
     <div>
       <img src="https://sugarspunrun.com/wp-content/uploads/2019/01/Best-Cheesecake-Recipe-2-1-of-1-7.jpg" />
       <div>Item Name: {item.name}</div>
+      <div>Item Price: {item.price}</div>
+      <div>Item Description: {item.description}</div>
+      <button>Add to cart</button>
     </div>
   )
 }
@@ -23,7 +27,7 @@ class SingleItem extends React.Component {
 
 const mapState = state => {
   return {
-    item: state.item
+    item: state.singleItemReducer
   }
 }
 
