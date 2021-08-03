@@ -1,34 +1,34 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const { db, models: { User } } = require('../index')
+const { db, models: { Customer } } = require('../index')
 const jwt = require('jsonwebtoken');
 const seed = require('../../../script/seed');
 
-describe('User model', () => {
-  let users;
+describe('Customer model', () => {
+  let customers;
   beforeEach(async() => {
-    users = (await seed()).users;
+    customers = (await seed()).customers;
   })
 
   describe('instanceMethods', () => {
     describe('generateToken', () => {
-      it('returns a token with the id of the user', async() => {
-        const token = await users.cody.generateToken();
+      it('returns a token with the id of the customer', async() => {
+        const token = await customers.cody.generateToken();
         const { id } = await jwt.verify(token, process.env.JWT);
-        expect(id).to.equal(users.cody.id);
+        expect(id).to.equal(customers.cody.id);
       })
     }) // end describe('correctPassword')
     describe('authenticate', () => {
-      let user;
-      beforeEach(async()=> user = await User.create({
-        username: 'lucy',
+      let customer;
+      beforeEach(async()=> customer = await Customer.create({
+        email: 'lucy@gmail.com',
         password: 'loo'
       }));
       describe('with correct credentials', ()=> {
         it('returns a token', async() => {
-          const token = await User.authenticate({
-            username: 'lucy',
+          const token = await Customer.authenticate({
+            email: 'lucy@gmail.com',
             password: 'loo'
           });
           expect(token).to.be.ok;
@@ -38,8 +38,8 @@ describe('User model', () => {
         it('throws a 401', async() => {
 
           try {
-            await User.authenticate({
-              username: 'lucy@gmail.com',
+            await Customer.authenticate({
+              email: 'lucy@gmail.com',
               password: '123'
             });
             throw 'nooo';
@@ -52,4 +52,4 @@ describe('User model', () => {
       });
     }) // end describe('authenticate')
   }) // end describe('instanceMethods')
-}) // end describe('User model')
+}) // end describe('Customer model')
