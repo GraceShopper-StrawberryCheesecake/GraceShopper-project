@@ -1,58 +1,54 @@
-'use strict'
+const { db, models: { Customer, Item, } }= require('../server/db');
 
-const {db, models: {User} } = require('../server/db')
+const seed = async () => {
 
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
-async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
-
-  // Creating Users
-  const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-  ])
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
-}
-
-/*
- We've separated the `seed` function from the `runSeed` function.
- This way we can isolate the error handling and exit trapping.
- The `seed` function is concerned only with modifying the database.
-*/
-async function runSeed() {
-  console.log('seeding...')
   try {
-    await seed()
+    await db.sync({ force: true });
+
+    const emails = ['Duane@gmail.com','Francis@gmail.com','Fabiola@gmail.com','Lenna@gmail.com','Viviana@gmail.com','Val@gmail.com','Latosha@gmail.com','Nancie@gmail.com','Reina@gmail.com','Torie@gmail.com','Rosemary@gmail.com','Fredrick@gmail.com','Nola@gmail.com','Trudie@gmail.com','Carri@gmail.com','Freeda@gmail.com','Jannette@gmail.com','Catalina@gmail.com','Miyoko@gmail.com','Yuki@gmail.com','Chelsea@gmail.com','Petra@gmail.com','Yasmine@gmail.com','Lashawn@gmail.com','Kina@gmail.com','Enola@gmail.com','Randi@gmail.com','Nina@gmail.com','Rochelle@gmail.com','Siu@gmail.com','Norma@gmail.com','Apolonia@gmail.com','Hermine@gmail.com','Leonie@gmail.com','Jessia@gmail.com','Joya@gmail.com','Kelle@gmail.com','Fredda@gmail.com','Synthia@gmail.com','Rachel@gmail.com','Jospeh@gmail.com','Oren@gmail.com','Douglas@gmail.com','Mignon@gmail.com','Beverley@gmail.com','Melissia@gmail.com','Gwenda@gmail.com','Demarcus@gmail.com','Garrett@gmail.com','Lasonya@gmail.com']
+
+    const customers = [];
+    for (let i = 0; i < emails.length; i++) {
+      customers.push(await Customer.create({email: emails[i], password: 'password'}))
+    }
+
+    const food = ['Raspberry', 'Blackberry', 'Avacado', 'Tomato', 'Skittles', 'Chips', 'Green Pepper']
+
+    const items = [];
+    for (let i = 0; i < food.length; i++) {
+      items.push(await Item.create({name: food[i]}))
+    }
+
+    const Item1 = await Item.create({name: 'Strawberry', description: 'A red fruit that we all can enjoy', imgUrl: 'https://billsberryfarm.com/wp-content/uploads/2020/08/strawberry-2.png', quantity: 10, price: 12.00})
+    const Item2 = await Item.create({name: 'Blueberry', description: 'An amazing, very good, blue fruit, that I also had as a smoothie this morning', imgUlr: 'https://www.freshpoint.com/wp-content/uploads/commodity-blueberry.jpg', quantity: 2, price: 5.99})
+    const Item3 = await Item.create({name: 'Lemon', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://assets.bonappetit.com/photos/5fd134d5e4009dfec306c19f/8:5/w_2840,h_1775,c_limit/Basically-Lemon.jpg', quantity: 10000, price: 1.86})
+
+    for (let i = 0; i < 5; i++) {
+      await Item1.addCustomer(customers[i]);
+      await Item2.addCustomer(customers[i]);
+      await Item3.addCustomer(customers[i]);
+    }
+
+    return [...customers, ...items]
+
   } catch (err) {
-    console.error(err)
-    process.exitCode = 1
-  } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
+    console.log(err);
   }
-}
+};
 
-/*
-  Execute the `seed` function, IF we ran this module directly (`node seed`).
-  `Async` functions always return a promise, so we can use `catch` to handle
-  any errors that might occur inside of `seed`.
-*/
-if (module === require.main) {
-  runSeed()
+module.exports = seed;
+// If this module is being required from another module, then we just export the
+// function, to be used as necessary. But it will run right away if the module
+// is executed directly (e.g. `node seed.js` or `npm run seed`)
+if (require.main === module) {
+  seed()
+    .then(() => {
+      console.log('Seeding success!');
+      db.close();
+    })
+    .catch((err) => {
+      console.error('Oh noes! Something went wrong!');
+      console.error(err);
+      db.close();
+    });
 }
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed
