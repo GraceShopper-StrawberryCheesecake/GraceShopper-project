@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -10,9 +12,39 @@ label {
   display: block;
 }
 
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px 5px 10px;
+}
+
+.logo img {
+  width: 80px;
+  margin-right: 25px;
+  transform: translateY(-10px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.nav-links-div {
+  display: flex;
+  align-items: center;
+}
+
+#cart-button img {
+  width: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 form div {
