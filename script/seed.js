@@ -9,7 +9,7 @@ const seed = async () => {
 
     const customers = [];
     for (let i = 0; i < emails.length; i++) {
-      customers.push(await Customer.create({email: emails[i], password: 'password'}))
+      customers.push(await Customer.create({name: emails[i].substring(0,emails[i].indexOf('@')), email: emails[i], password: 'password'}))
     }
 
     const food = ['Raspberry', 'Blackberry', 'Avacado', 'Tomato', 'Skittles', 'Chips', 'Green Pepper']

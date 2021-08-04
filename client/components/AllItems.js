@@ -14,7 +14,7 @@ class AllItems extends React.Component {
                 {this.props.items.map(item => {
                     return(
                         <div key={item.id} className="item" >
-                            <img src={item.url || "http://www.yiyinglu.com/wp-content/uploads/2013/11/lifting-a-dreamer-2009.jpg"} />
+                            <img src={item.imgUrl} />
                             <div className="content">
                                 <h2>{item.name}</h2>
                                 <h3>item description</h3>
