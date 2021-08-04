@@ -1,6 +1,5 @@
 const router = require('express').Router()
-
-const { models: { Customer }} = require('../db')
+const { models: { Customer, Order, Item }} = require('../db')
 const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 module.exports = router
 
@@ -17,8 +16,8 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
 
 router.get('/:customerId/cart', async (req, res, next) => {
   try {
-    const order = await Order.findOne({ 
-      where: { 
+    const order = await Order.findOne({
+      where: {
         customerId: req.params.customerId,
         orderComplete: false
       }, include: {model: Item}
@@ -27,5 +26,5 @@ router.get('/:customerId/cart', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-}) 
+})
 
