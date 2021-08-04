@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.single-item-div {
+    display: flex;
+}
+
+.single-item-div h1 {
+    font-size: 48px;
+    text-align: center;
+}
+
+.single-item-div img {
+    max-width: 500px;
+    margin-left: 50px
+
+}
+
+.single-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 600px;
+    padding: 50px;
+}
+
+#item-description {
+    margin: 70px 0 70px 50px;
+    font-size: 18px;
+    width: 450px;
+}
+
+#price-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-self: flex-end;
+}
+
+#price-and-button p {
+    margin-top: 30px;
+    margin-right: 10px
+}
+
+
