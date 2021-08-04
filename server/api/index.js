@@ -3,6 +3,7 @@ module.exports = router
 
 //I think this line has to be changed to customers
 router.use('/users', require('./users'))
+router.use('/items', require('./items'))
 
 router.use('/items', require('./items'))
 
