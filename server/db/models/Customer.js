@@ -7,6 +7,11 @@ const axios = require('axios');
 const SALT_ROUNDS = 5;
 
 const Customer = db.define('customer', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    isEmpty: false
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -49,6 +54,7 @@ Customer.authenticate = async function({ email, password }){
 
 Customer.findByToken = async function(token) {
   try {
+    console.log("TOKEN IN Customer.js: ", token)
     const {id} = await jwt.verify(token, process.env.JWT)
     const customer = Customer.findByPk(id)
     if (!customer) {
