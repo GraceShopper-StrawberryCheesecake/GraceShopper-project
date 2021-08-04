@@ -1,4 +1,5 @@
 const { db, models: { Customer, Item, } }= require('../server/db');
+const Order = require('../server/db/models/Order');
 
 const seed = async () => {
 
@@ -23,11 +24,14 @@ const seed = async () => {
     const Item2 = await Item.create({name: 'Blueberry', description: 'An amazing, very good, blue fruit, that I also had as a smoothie this morning', imgUlr: 'https://www.freshpoint.com/wp-content/uploads/commodity-blueberry.jpg', quantity: 2, price: 5.99})
     const Item3 = await Item.create({name: 'Lemon', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://assets.bonappetit.com/photos/5fd134d5e4009dfec306c19f/8:5/w_2840,h_1775,c_limit/Basically-Lemon.jpg', quantity: 10000, price: 1.86})
 
-    for (let i = 0; i < 5; i++) {
-      await Item1.addCustomer(customers[i]);
-      await Item2.addCustomer(customers[i]);
-      await Item3.addCustomer(customers[i]);
-    }
+    const Order1 = await Order.create()
+    const Order2 = await Order.create()
+
+    customers[0].addOrder(Order1)
+    customers[1].addOrder(Order2)
+
+    await Order1.addItems([Item1, Item2, Item3]);
+ 
 
     return [...customers, ...items]
 

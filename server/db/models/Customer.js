@@ -25,6 +25,10 @@ const Customer = db.define('customer', {
   },
   password: {
     type: Sequelize.STRING,
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
