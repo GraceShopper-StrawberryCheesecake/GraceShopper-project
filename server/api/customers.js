@@ -15,9 +15,9 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
 })
 
 
-router.delete('/:customerId', requireToken, isAdmin, async (req, res, next) => {
+router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const customer = await Customer.findByPk(req.params.customerId)
+    const customer = await Customer.findByPk(req.params.id)
     await customer.destroy()
     res.json(customer)
   } catch (error) {
@@ -25,11 +25,13 @@ router.delete('/:customerId', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/', requireToken, isAdmin, async (req, res, next) => {
+router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
-    
+    const customer = await Customer.findByPk(req.params.id)
+    await customer.update(req.body)
+    res.json(customer)
   } catch (error) {
-    
+    next(error)
   }
 })
 
@@ -37,13 +39,13 @@ router.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     
   } catch (error) {
-    
+    next(error)
   }
 })
 
-router.get('/:customerId', requireToken, isAdmin, async (req, res, next) => {
+router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const customer = await Customer.findOne({where: {id: req.params.customerId}},{
+    const customer = await Customer.findOne({where: {id: req.params.id}},{
       attributes: ['id', 'name', 'email']
     })
     res.send(customer)

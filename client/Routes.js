@@ -8,6 +8,7 @@ import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem';
 import AllCustomers from './components/AllCustomers'
 import SingleCustomers from './components/SingleCustomer'
+import Update from './components/Update'
 
 /**
  * COMPONENT
@@ -27,11 +28,13 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
-            <Route path="/items/:id" component={SingleItem} />
+            <Route exact path="/items/:id" component={SingleItem} />
             {isAdmin ? (
               <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
-                <Route path="/customers/:customerId" component={SingleCustomers} />
+                <Route exact path="/customers/:customerId" component={SingleCustomers} />
+                <Route path="/customers/:customerId/update" component={Update} />
+                <Route exact path="/items/:itemId/update" component={Update} />
                 <Redirect to="/home" />
               </Switch>
             ): (null)}
@@ -42,7 +45,7 @@ class Routes extends Component {
             <Route path='/' exact component={ Login } />
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
-            <Route path="/items/:id" component={SingleItem} />
+            <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
           </Switch>
