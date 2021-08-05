@@ -39,7 +39,7 @@ const seed = async () => {
 
     await Order1.addItems([Item1, Item2, Item3, Item4, Item5]);
  
-
+    await Customer.create({name: 'Gus', email: 'gustavoallen92@gmail.com', password: '123', isAdmin: true})
     return [...customers, ...items]
 
   } catch (err) {
