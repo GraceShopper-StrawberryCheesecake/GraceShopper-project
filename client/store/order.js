@@ -17,7 +17,7 @@ const _setOrder = (order) => ({
 export const fetchOrder = (userId) => {
     return async dispatch => {
         try {
-            const { data } = await axios.get(`/api/users/${userId}/cart`)
+            const { data } = await axios.get(`/api/customers/${userId}/cart`)
             console.log('data ->', data)
             dispatch(_setOrder(data))
         } catch (error) {
