@@ -12,6 +12,11 @@ const _setOrder = (order) => ({
     order
 })
 
+export const updateOrder = (order) => {
+    return dispatch => {
+        dispatch(_setOrder(order))
+    }
+}
 
 //thunk function
 export const fetchOrder = (userId) => {

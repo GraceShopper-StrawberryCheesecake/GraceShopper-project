@@ -1,8 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchItems } from '../store/items'
+import { Button } from '@material-ui/core'
+import { updateOrder } from '../store/order'
 
 class AllItems extends React.Component {
+
+    constructor() {
+        super()
+        this.handleClick = this.handleClick.bind(this)
+        this.addItemToCart = this.addItemToCart.bind(this)
+    }
+
     componentDidMount() {
         this.props.getItems()
     }
@@ -23,7 +32,8 @@ class AllItems extends React.Component {
                                 {item.quantity > 0 ? (
                                     <div id="stock">
                                         <div>In Stock</div>
-                                        <button>add to cart</button>
+                                        <Button variant="outlined" value={item} onClick={(event) => this.handleClick(event)}>Add to cart</Button>
+                                        <button value={item.id} onClick={(event) => this.handleClick(event)}>Add to cart</button>
                                     </div>
                                 ) : (
                                     <div id="stock">Out of Stock</div>
@@ -35,6 +45,29 @@ class AllItems extends React.Component {
             </div>
         )
     }
+
+    handleClick(event) {
+        this.addItemToCart(event.target.value)
+    }
+
+    addItemToCart(itemId) {
+        const oldCart = JSON.parse(window.localStorage.getItem('order'));
+        let newCart = {}
+        if (!oldCart) {
+            newCart = { [itemId]: 1}
+        } else {
+            newCart = oldCart
+            if (Object.keys(oldCart).includes(itemId)) {
+                newCart[itemId] = oldCart[itemId] +1
+            } else {
+                newCart[itemId] = 1
+            }
+        }
+        window.localStorage.setItem('order', JSON.stringify(newCart))
+        this.props.updateOrder(newCart)
+    }
+
+
 }
 
 const mapState = (state) => ({
@@ -42,7 +75,8 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-    getItems: () => dispatch(fetchItems())
+    getItems: () => dispatch(fetchItems()),
+    updateOrder: (order) => dispatch(updateOrder(order))
 })
 
 export default connect(mapState, mapDispatch)(AllItems)
