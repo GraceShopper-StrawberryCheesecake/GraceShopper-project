@@ -13,7 +13,8 @@ const _setCustomers = (customers) => ({
 export const fetchCustomers = () => {
     return async dispatch => {
         try {
-            const { data } = await axios.get('/api/customers', {authorization: window.localStorage.getItem('token')})
+            const token = window.localStorage.getItem("token")
+            const { data } = await axios.get('/api/customers', {headers:{authorization: token}})
             dispatch(_setCustomers(data))
         } catch (error) {
             console.log('cannot get customers')

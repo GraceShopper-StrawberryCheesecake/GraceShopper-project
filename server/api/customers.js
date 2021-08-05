@@ -15,6 +15,16 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
 })
 
 
+router.delete('/:customerId', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.findByPk(req.params.customerId)
+    await customer.destroy()
+    res.json(customer)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.put('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     

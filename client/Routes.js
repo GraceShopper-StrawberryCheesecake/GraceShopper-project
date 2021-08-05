@@ -30,8 +30,9 @@ class Routes extends Component {
             <Route path="/items/:id" component={SingleItem} />
             {isAdmin ? (
               <Switch>
-                <Route path="/customers" component={AllCustomers} />
-                <Route exact path="/customers/:customerId" component={SingleCustomers} />
+                <Route exact path="/customers" component={AllCustomers} />
+                <Route path="/customers/:customerId" component={SingleCustomers} />
+                <Redirect to="/home" />
               </Switch>
             ): (null)}
             <Redirect to="/home" />
