@@ -102,3 +102,35 @@ form div {
   min-width: 80px;
 }
 
+/* below is styling for AllCustomers & SingleCustomers */
+.allCustomers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.customerInfo {
+  /* margin-left: 10px; */
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin-bottom: 50px;
+  border: 2px solid black;
+  padding: 20px;
+}
+
+.singleCustomer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.singleCustomerInfo {
+  /* margin-left: 10px; */
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 2px solid black;
+  padding: 20px;
+}

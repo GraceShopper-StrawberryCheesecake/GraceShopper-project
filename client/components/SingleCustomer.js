@@ -18,29 +18,29 @@ class SingleCustomer extends React.Component {
     handleView(id) {
         // this.props.history.push(`/customers/update/${id}`)
     }
-    
+
     async handleDelete(id) {
         await axios.delete(`/api/customers/${id}`, {headers: {
             authorization: window.localStorage.getItem('token')
         }})
         this.props.history.push(`/customers`)
-        
+
     }
-    
+
     render() {
         const { customer } = this.props
         return (
-            <React.Fragment>
+            <div className="singleCustomer">
                 {customer ? (
                     <div className="singleCustomerInfo">
                         <div>{customer.name}</div>
                         <div>{customer.email}</div>
-                        <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
                         <button onClick={this.handleView(customer.id)}>Update</button>
+                        <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
                     </div>
                 ) : (null)}
 
-            </React.Fragment>
+            </div>
         )
     }
 }
