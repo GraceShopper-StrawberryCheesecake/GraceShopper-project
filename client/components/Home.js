@@ -1,15 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const Home = props => {
-  const {username} = props
+  const {name} = props
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>Welcome, {name}</h3>
+      <Link to='/items'>Checkout our selection of cheesecakes</Link>
+      <img src="/cheesecakeicon.svg"/>
     </div>
   )
 }
@@ -19,7 +22,7 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    username: state.auth.username
+    name: state.auth.name
   }
 }
 

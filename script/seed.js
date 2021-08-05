@@ -13,16 +13,23 @@ const seed = async () => {
       customers.push(await Customer.create({name: emails[i].substring(0,emails[i].indexOf('@')), email: emails[i], password: 'password'}))
     }
 
-    const food = ['Raspberry', 'Blackberry', 'Avacado', 'Tomato', 'Skittles', 'Chips', 'Green Pepper']
+    // const food = ['Raspberry', 'Blackberry', 'Avacado', 'Tomato', 'Skittles', 'Chips', 'Green Pepper']
 
-    const items = [];
-    for (let i = 0; i < food.length; i++) {
-      items.push(await Item.create({name: food[i]}))
-    }
+    // const items = [];
+    // for (let i = 0; i < food.length; i++) {
+    //   items.push(await Item.create({name: food[i]}))
+    // }
 
-    const Item1 = await Item.create({name: 'Strawberry', description: 'A red fruit that we all can enjoy', imgUrl: 'https://billsberryfarm.com/wp-content/uploads/2020/08/strawberry-2.png', quantity: 10, price: 12.00})
-    const Item2 = await Item.create({name: 'Blueberry', description: 'An amazing, very good, blue fruit, that I also had as a smoothie this morning', imgUlr: 'https://www.freshpoint.com/wp-content/uploads/commodity-blueberry.jpg', quantity: 2, price: 5.99})
-    const Item3 = await Item.create({name: 'Lemon', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://assets.bonappetit.com/photos/5fd134d5e4009dfec306c19f/8:5/w_2840,h_1775,c_limit/Basically-Lemon.jpg', quantity: 10000, price: 1.86})
+    const Item1 = await Item.create({name: 'Strawberry', description: 'A red fruit that we all can enjoy', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_FreshStrawberryCheesecake.jpg', quantity: 10, price: 12.00})
+    const Item2 = await Item.create({name: 'Caramel Fudge', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_ChocolateCarameliciousCheesecake.jpg', quantity: 10000, price: 1.86})
+    const Item3 = await Item.create({name: 'Pineapple Upside-down', description: 'A red fruit that we all can enjoy', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_PineappleUpsideDownCheesecake.jpg', quantity: 10, price: 12.00})
+    const Item4 = await Item.create({name: 'Caramel Apple', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CaramelAppleCheesecake.jpg', quantity: 10, price: 12.50})
+    const Item5 = await Item.create({name: 'Rasberry', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_VeryCherryGhirardelliChocolateCheesecake.jpg', quantity: 10, price: 10.50})
+    const Item6 = await Item.create({name: 'Cinnamon', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_CinnabonCinnamonSwirlCheesecake.jpg', quantity: 10, price: 13.00})
+    const Item7 = await Item.create({name: 'CoconutCream', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/1920x1440-Coconut-Cream-Pie.jpg', quantity: 10, price: 12.86})
+    const Item8 = await Item.create({name: 'Salted Caramel', description: 'Something you find on your drinks in resturaunts, if you can remember going places.', imgUrl: 'https://www.thecheesecakefactory.com/assets/images/Menu-Import/CCF_SaltedCaramelCheesecake.jpg', quantity: 10, price: 12.86})
+
+    const items = [Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8]
 
     const Order1 = await Order.create()
     const Order2 = await Order.create()
@@ -30,7 +37,7 @@ const seed = async () => {
     customers[0].addOrder(Order1)
     customers[1].addOrder(Order2)
 
-    await Order1.addItems([Item1, Item2, Item3]);
+    await Order1.addItems([Item1, Item2, Item3, Item4, Item5]);
  
 
     return [...customers, ...items]
