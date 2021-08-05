@@ -30,17 +30,17 @@ class SingleCustomer extends React.Component {
     render() {
         const { customer } = this.props
         return (
-            <React.Fragment>
+            <div className="singleCustomer">
                 {customer ? (
                     <div className="singleCustomerInfo">
                         <div>{customer.name}</div>
                         <div>{customer.email}</div>
-                        <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
                         <button onClick={this.handleView(customer.id)}>Update</button>
+                        <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
                     </div>
                 ) : (null)}
 
-            </React.Fragment>
+            </div>
         )
     }
 }
