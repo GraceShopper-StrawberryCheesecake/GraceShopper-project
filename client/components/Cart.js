@@ -44,7 +44,8 @@ class Cart extends React.Component {
 
         // we check to see if the order on the state is an empty object
         // if it is and the order on props exists, we set the state to the order on props
-        if (Object.keys(this.state.order).length < 1 && this.props.order) {
+        if (Object.keys(this.state.order).length < 1 && Object.keys(this.props.order).length > 0 ) {
+            console.log('store update check')
             this.setState({
                 order: this.props.order
             })
@@ -56,8 +57,8 @@ class Cart extends React.Component {
         // filter over the items array check if the order object contains the item id
         const cartItems = this.props.items.filter((item) => Object.keys(this.state.order).includes(String(item.id)))
         return (
-            <div>
-                <h1>CART</h1>
+            <div id="cart">
+                <h1>Cart</h1>
                 {Object.keys(this.state.order).length > 0 && cartItems.map((item, index) => <div key={index} >{item.name} {this.state.order[item.id]}</div>)}
             </div>
         )
