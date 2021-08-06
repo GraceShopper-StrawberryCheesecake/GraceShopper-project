@@ -110,7 +110,6 @@ form div {
 }
 
 .customerInfo {
-  /* margin-left: 10px; */
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -127,10 +126,40 @@ form div {
 }
 
 .singleCustomerInfo {
-  /* margin-left: 10px; */
   display: flex;
   flex-direction: column;
   width: 300px;
   border: 2px solid black;
   padding: 20px;
+}
+
+/* below is styling for all the updates */
+.update {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+input {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#updateCustomerButt {
+  text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+#updateItemButt {
+  text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+textarea[name=description] {
+  width: 300px;
+  height: 100px;
+  font-family: Arial, Helvetica, sans-serif;
 }
