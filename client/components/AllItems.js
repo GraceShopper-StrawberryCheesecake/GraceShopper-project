@@ -38,11 +38,13 @@ class AllItems extends React.Component {
                                 <h2>{item.name}</h2>
                                 <h3>item description</h3>
                                 <div className="description">{item.description}</div>
-                                <div>Price: ${item.price}</div>
+                                <div>Price: ${item.price/100}</div>
                                 {item.quantity > 0 ? (
                                     <div id="stock">
                                         <div>In Stock</div>
-                                        <Button variant="outlined">add to cart</Button>
+                                        {/* <Button variant="outlined">add to cart</Button> */}
+
+                                        <button value={item.id} onClick={(event) => this.handleClick(event)}>Add to cart</button>
                                         {this.props.isAdmin ? (
                                             <Button color="secondary" variant="outlined" onClick={() => this.handleDelete(item.id)}>Delete</Button>
                                         ) : (null)}

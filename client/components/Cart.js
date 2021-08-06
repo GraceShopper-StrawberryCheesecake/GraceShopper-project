@@ -9,7 +9,7 @@ class Cart extends React.Component {
     this.state = {
       order: {},
     };
-    this.mergeCarts = this.mergeCarts.bind(this);
+    // this.mergeCarts = this.mergeCarts.bind(this);
     this.parseOrderToCart = this.parseOrderToCart.bind(this);
   }
 
@@ -38,29 +38,29 @@ class Cart extends React.Component {
       return cartItems
   }
 
-  mergeCarts(storeCart, localCart) {
-    console.log('storeCart', storeCart)
-    console.log('localCart', localCart)
-    if (!localCart || Object.keys(localCart).length < 1) {
-        return storeCart
-    }
-    const storeCartKeys = Object.keys(storeCart);
-    const localCartKeys = Object.keys(localCart);
-    const allKeys = [...storeCartKeys, ...localCartKeys].sort((a, b) => a - b)
-    const hashMap = {}
+  // mergeCarts(storeCart, localCart) {
+  //   // console.log('storeCart', storeCart)
+  //   // console.log('localCart', localCart)
+  //   if (!localCart || Object.keys(localCart).length < 1) {
+  //       return storeCart
+  //   }
+  //   const storeCartKeys = Object.keys(storeCart);
+  //   const localCartKeys = Object.keys(localCart);
+  //   const allKeys = [...storeCartKeys, ...localCartKeys].sort((a, b) => a - b)
+  //   const hashMap = {}
 
-    for (let i = 0; i < allKeys.length; i++) {
-        let sum = 0
-        if (!hashMap[allKeys[i]]) {
-            if(storeCartKeys[allKeys[i]]) sum += parseInt(storeCartKeys[allKeys[i]])
-            if(localCartKeys[allKeys[i]]) sum += parseInt(localCartKeys[allKeys[i]])
-            hashMap[allKeys[i]] = sum
-        } 
-    }
+  //   for (let i = 0; i < allKeys.length; i++) {
+  //       let sum = 0
+  //       if (!hashMap[allKeys[i]]) {
+  //           if(storeCartKeys[allKeys[i]]) sum += parseInt(storeCartKeys[allKeys[i]])
+  //           if(localCartKeys[allKeys[i]]) sum += parseInt(localCartKeys[allKeys[i]])
+  //           hashMap[allKeys[i]] = sum
+  //       } 
+  //   }
     
-    return hashMap
+  //   return hashMap
 
-  }
+  // }
 
   // after the database call, we set the state with the user's order
   componentDidUpdate() {
@@ -71,18 +71,22 @@ class Cart extends React.Component {
       Object.keys(this.props.order).length > 0
     ) {
       const localCart = JSON.parse(window.localStorage.getItem("order"));
-      let storeCart = {}
-      if (this.props.order.id) {
-        storeCart = this.parseOrderToCart(this.props.order)
-      } else {
-        storeCart = this.props.order
-      }
-    //   this.props.order.id ? this.parseOrderToCart(this.props.order) : this.props.order;
-      const mergedCart = this.mergeCarts(storeCart, localCart);
-      window.localStorage.setItem("order", JSON.stringify(mergedCart));
+      
       this.setState({
-        order: mergedCart,
-      });
+        order: localCart
+      })
+      // let storeCart = {}
+      // if (this.props.order.id) {
+      //   storeCart = this.parseOrderToCart(this.props.order)
+      // } else {
+      //   storeCart = this.props.order
+      // }
+    //   this.props.order.id ? this.parseOrderToCart(this.props.order) : this.props.order;
+      // const mergedCart = this.mergeCarts(storeCart, localCart);
+      // window.localStorage.setItem("order", JSON.stringify(mergedCart));
+      // this.setState({
+      //   order: mergedCart,
+      // });
     }
 
     // we check to see if the cart on local storage is not equal to the current order on state

@@ -40,7 +40,7 @@ class SingleItem extends React.Component {
             {item.description}
           </p>
           <div id="price-and-button">
-          <p> price: $ {item.price}</p>
+          <p> price: $ {item.price/100}</p>
           <Button variant="outlined">Add to cart</Button>
           {this.props.isAdmin ? (
             <React.Fragment>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../store";
+import { logout, updateOrder } from "../store";
 import Cart from "./Cart"
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
@@ -55,6 +55,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout());
+      dispatch(updateOrder({}))
     },
   };
 };

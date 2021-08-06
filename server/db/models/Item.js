@@ -25,7 +25,7 @@ const Item = db.define('item', {
   },
 
   price: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.INTEGER,
       min: 0,
       defaultValue: 0
   }
