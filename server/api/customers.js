@@ -14,6 +14,47 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.create(req.body)
+    res.json(customer)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id)
+    await customer.destroy()
+    res.json(customer)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id)
+    await customer.update(req.body)
+    res.json(customer)
+  } catch (error) {
+    next(error)
+  }
+})
+
+
+router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.findOne({where: {id: req.params.id}},{
+      attributes: ['id', 'name', 'email']
+    })
+    res.send(customer)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/:customerId/cart', async (req, res, next) => {
   try {
     const order = await Order.findOne({

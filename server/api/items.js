@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { models: { Item }} = require('../db')
+const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -10,6 +11,36 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const item = await Item.create(req.body)
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const item = await Item.findByPk(req.params.id)
+    await item.destroy()
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const item = await Item.findByPk(req.params.id)
+    await item.update(req.body)
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 router.get('/:id', async (req, res, next) => {
   try {
