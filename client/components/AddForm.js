@@ -48,7 +48,7 @@ class AddForm extends React.Component {
                 {url.includes('customer') ? (
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='name'>Name</label>
-                        <input type="text" onChange={this.handleChange}/>
+                        <input type="text" name="name" onChange={this.handleChange}/>
 
                         <label htmlFor='email'>Email</label>
                         <input type="text" name="email" onChange={this.handleChange}/>
