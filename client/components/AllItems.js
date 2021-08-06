@@ -1,9 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchItems } from '../store/items'
+import { Button } from "@material-ui/core";
+import { me } from '../store/auth';
+import axios from 'axios';
 
 class AllItems extends React.Component {
+    constructor() {
+        super()
+        this.handleDelete = this.handleDelete.bind(this)
+    }
     componentDidMount() {
+        this.props.getItems()
+        if(window.localStorage.getItem('token')) {
+            this.props.getAuth()
+        }
+    }
+
+    async handleDelete(id) {
+        await axios.delete(`/api/items/${id}`, {headers: {authorization: window.localStorage.getItem('token')}})
         this.props.getItems()
     }
 
@@ -14,7 +29,7 @@ class AllItems extends React.Component {
                 {this.props.items.map(item => {
                     return(
                         <div key={item.id} className="item" >
-                            <img src={item.imgUrl} />
+                            <img src={item.imgUrl} onClick={() => {this.props.history.push(`/items/${item.id}`)}}/>
                             <div className="content">
                                 <h2>{item.name}</h2>
                                 <h3>item description</h3>
@@ -23,7 +38,10 @@ class AllItems extends React.Component {
                                 {item.quantity > 0 ? (
                                     <div id="stock">
                                         <div>In Stock</div>
-                                        <button>add to cart</button>
+                                        <Button variant="outlined">add to cart</Button>
+                                        {this.props.isAdmin ? (
+                                            <Button color="secondary" variant="outlined" onClick={() => this.handleDelete(item.id)}>Delete</Button>
+                                        ) : (null)}
                                     </div>
                                 ) : (
                                     <div id="stock">Out of Stock</div>
@@ -38,11 +56,13 @@ class AllItems extends React.Component {
 }
 
 const mapState = (state) => ({
-    items: state.items
+    items: state.items,
+    isAdmin: state.auth.isAdmin
 })
 
 const mapDispatch = (dispatch) => ({
-    getItems: () => dispatch(fetchItems())
+    getItems: () => dispatch(fetchItems()),
+    getAuth: () => dispatch(me())
 })
 
 export default connect(mapState, mapDispatch)(AllItems)

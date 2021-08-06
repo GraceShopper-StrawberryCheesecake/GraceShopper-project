@@ -16,7 +16,7 @@ class SingleCustomer extends React.Component {
     }
 
     handleView(id) {
-        // this.props.history.push(`/customers/update/${id}`)
+        this.props.history.push(`/customers/${id}/update`)
     }
 
     async handleDelete(id) {
@@ -35,7 +35,7 @@ class SingleCustomer extends React.Component {
                     <div className="singleCustomerInfo">
                         <div>{customer.name}</div>
                         <div>{customer.email}</div>
-                        <button onClick={this.handleView(customer.id)}>Update</button>
+                        <button onClick={() => this.handleView(customer.id)}>Update</button>
                         <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
                     </div>
                 ) : (null)}

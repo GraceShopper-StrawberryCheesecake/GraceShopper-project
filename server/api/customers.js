@@ -14,6 +14,14 @@ router.get('/', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const customer = await Customer.create(req.body)
+    res.json(customer)
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
@@ -35,13 +43,6 @@ router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
-router.post('/', requireToken, isAdmin, async (req, res, next) => {
-  try {
-    
-  } catch (error) {
-    next(error)
-  }
-})
 
 router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
