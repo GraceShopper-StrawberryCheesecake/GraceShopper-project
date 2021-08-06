@@ -29,13 +29,14 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
-            <Route path="/items/:id" component={SingleItem} />
+            <Route exact path="/items/:id" component={SingleItem} />
             {isAdmin ? (
               <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
                 <Route exact path="/customer/add" component={AddForm} />
                 <Route exact path="/customers/:customerId" component={SingleCustomers} />
-                <Route exact path="/customers/:customerId/update" component={UpdateForm} />
+                <Route path="/customers/:customerId/update" component={UpdateForm} />
+                <Route exact path="/item/add" component={AddForm} />
                 <Route exact path="/items/:itemId/update" component={UpdateForm} />
                 <Redirect to="/home" />
               </Switch>
@@ -45,7 +46,7 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
-          <Route path="/home" component={Home} />
+            <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
             <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/login" component={Login} />

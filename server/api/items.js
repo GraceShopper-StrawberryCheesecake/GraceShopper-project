@@ -21,6 +21,16 @@ router.post('/', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
+router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const item = await Item.findByPk(req.params.id)
+    await item.destroy()
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id)
