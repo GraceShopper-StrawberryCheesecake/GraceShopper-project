@@ -8,7 +8,8 @@ import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem';
 import AllCustomers from './components/AllCustomers'
 import SingleCustomers from './components/SingleCustomer'
-import Update from './components/Update'
+import UpdateForm from './components/UpdateForm'
+import AddForm from './components/AddForm'
 
 /**
  * COMPONENT
@@ -28,13 +29,15 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
-            <Route exact path="/items/:id" component={SingleItem} />
+            <Route path="/items/:id" component={SingleItem} />
             {isAdmin ? (
               <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
+                <Route exact path="/customer/add" component={AddForm} />
+                <Route exact path="/item/add" component={AddForm} />
                 <Route exact path="/customers/:customerId" component={SingleCustomers} />
-                <Route path="/customers/:customerId/update" component={Update} />
-                <Route exact path="/items/:itemId/update" component={Update} />
+                <Route exact path="/customers/:customerId/update" component={UpdateForm} />
+                <Route exact path="/items/:itemId/update" component={UpdateForm} />
                 <Redirect to="/home" />
               </Switch>
             ): (null)}
@@ -43,10 +46,12 @@ class Routes extends Component {
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
+          <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
             <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Redirect to="/home" />
           </Switch>
         )}
       </div>

@@ -12,6 +12,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    const item = await Item.create(req.body)
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id)
@@ -21,6 +30,7 @@ router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
     next(error)
   }
 })
+
 
 router.get('/:id', async (req, res, next) => {
   try {
