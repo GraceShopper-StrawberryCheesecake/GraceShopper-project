@@ -18,15 +18,15 @@ class SingleCustomer extends React.Component {
     handleView(id) {
         this.props.history.push(`/customers/${id}/update`)
     }
-    
+
     async handleDelete(id) {
         await axios.delete(`/api/customers/${id}`, {headers: {
             authorization: window.localStorage.getItem('token')
         }})
         this.props.history.push(`/customers`)
-        
+
     }
-    
+
     render() {
         const { customer } = this.props
         return (

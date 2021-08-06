@@ -19,7 +19,7 @@ export const Home = props => {
 
         </React.Fragment>
       ) : (null)}
-      <h3>Welcome, {name}</h3>
+      {name && <h3>Welcome, {name}</h3>}
       <Link to='/items'>Checkout our selection of cheesecakes</Link>
       <img src="/cheesecakeicon.svg"/>
     </div>

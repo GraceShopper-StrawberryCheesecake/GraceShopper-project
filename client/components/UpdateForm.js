@@ -45,7 +45,7 @@ class Update extends React.Component {
             this.setState({item: {...this.state.item, [evt.target.name]: evt.target.value}})
         }
     }
-    
+
     async handleSubmit(evt) {
         evt.preventDefault()
         if(this.props.match.params.customerId) {
@@ -60,7 +60,7 @@ class Update extends React.Component {
     render() {
         const {params} = this.props.match
         return(
-            <div>
+            <div className="update">
                 {params.customerId ? (
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='name'>Name</label>
@@ -68,12 +68,12 @@ class Update extends React.Component {
 
                         <label htmlFor='email'>Email</label>
                         <input type="text" name="email" value={this.state.customer.email} onChange={this.handleChange}/>
-                        
+
                         <label htmlFor='password'>Password</label>
                         <input type="password" name="password" onChange={this.handleChange}/>
                         <br/>
 
-                        <button type="submit">Update Customer</button>
+                        <button id="updateCustomerButt" type="submit">Update Customer</button>
                     </form>
                 ) : (
                     <form onSubmit={this.handleSubmit}>
@@ -82,18 +82,18 @@ class Update extends React.Component {
 
                         <label htmlFor='imgUrl'>Image Url</label>
                         <input type="text" name="imgUrl" value={this.state.item.imgUrl} onChange={this.handleChange}/>
-                        
+
                         <label htmlFor='description'>Description</label>
-                        <input type="text" name="description" value={this.state.item.description} onChange={this.handleChange}/>
-                        
+                        <textarea type="text" name="description" value={this.state.item.description} onChange={this.handleChange}/>
+
                         <label htmlFor='quantity'>Quantity</label>
                         <input type="number" name="quantity" value={this.state.item.quantity} onChange={this.handleChange}/>
-                        
+
                         <label htmlFor='price'>Price</label>
                         <input type="number" step="0.01" min="0" name="price" value={this.state.item.price} onChange={this.handleChange}/>
                         <br/>
 
-                        <button type="submit">Update Item</button>
+                        <button id="updateItemButt" type="submit">Update Item</button>
                     </form>
                 )}
             </div>
