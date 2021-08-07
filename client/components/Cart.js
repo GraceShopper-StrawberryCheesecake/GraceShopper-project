@@ -11,6 +11,7 @@ class Cart extends React.Component {
       order: {},
     };
     this.handleChangeQuantity = this.handleChangeQuantity.bind(this)
+    this.handleRemoveItem = this.handleRemoveItem.bind(this)
   }
 
   // when the component mounts we check if the user is logged in and get the order rom the database
@@ -29,6 +30,16 @@ class Cart extends React.Component {
     }
   }
 
+  // it removed a key from the order object 
+  handleRemoveItem(itemId) {
+    let order = this.state.order;
+    delete order[itemId]
+    window.localStorage.setItem('order', JSON.stringify(order))
+    this.setState({
+      order
+    })
+  }
+
   parseOrderToCart(order) {
       const orderItems = order.items
       const cartItems = orderItems.reduce((accum, item) => {
@@ -41,8 +52,9 @@ class Cart extends React.Component {
   
   // after the database call, we set the state with the user's order
   componentDidUpdate() {
-    // we check to see if the order on the state is an empty object
-    // if it is and the order on props exists, we set the state to the order on props
+    // we check to see if the order on the local storage exists
+    // if it does, we check if it is the same as the state order
+    // if they are different, we push the local storage on the state
 
     if (JSON.parse(window.localStorage.getItem("order"))) {
       if ( JSON.stringify(this.state.order) !== window.localStorage.getItem('order') ) {
@@ -88,6 +100,7 @@ class Cart extends React.Component {
           cartItems.map((item, index) => (
             <div key={index}>
               <InputLabel>{item.name}</InputLabel> <TextField type='number' InputProps={{ inputProps: { min: 1, max: item.quantity } }} value={this.state.order[item.id]} name={String(item.id)} onChange={this.handleChangeQuantity} />
+              <button value={item.id} onClick={() => this.handleRemoveItem(item.id)} > X </button>
             </div>
           ))}  
       </div>

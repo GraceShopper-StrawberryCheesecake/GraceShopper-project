@@ -34,6 +34,7 @@ class Navbar extends React.Component {
     this.setCartIsOpen(false)
   }
 
+  // added an event listener to the window on refresh to sync cart to database
   componentDidMount() {
     window.addEventListener('beforeunload', this.componentCleanup);
   }
