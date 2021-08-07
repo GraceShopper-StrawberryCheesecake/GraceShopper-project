@@ -31,16 +31,16 @@ const seed = async () => {
 
     const items = [Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8]
 
-    const Order1 = await Order.create()
-    const Order2 = await Order.create()
+    // const Order1 = await Order.create()
+    // const Order2 = await Order.create()
 
-    customers[0].addOrder(Order1)
-    customers[1].addOrder(Order2)
+    // customers[0].addOrder(Order1)
+    // customers[1].addOrder(Order2)
 
-    await Order1.addItem(Item1, {through: {price: Item1.price, quantity: 5}})
+    // await Order1.addItem(Item1, {through: {price: Item1.price, quantity: 5}})
 
-    await Order1.addItems([Item2, Item3, Item4, Item5]);
- 
+    // await Order1.addItems([Item2, Item3, Item4, Item5]);
+
     await Customer.create({name: 'Gus', email: 'gustavoallen92@gmail.com', password: '123', isAdmin: true})
     return [...customers, ...items]
 

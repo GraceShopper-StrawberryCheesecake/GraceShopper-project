@@ -95,9 +95,10 @@ const hashPassword = async(customer) => {
 }
 const createCart = async(customer) => {
   const cart = await Order.create()
-  customer.addOrder(cart)
+  await customer.addOrder(cart)
 }
 
-Customer.beforeCreate(hashPassword, createCart)
+Customer.beforeCreate(hashPassword)
+Customer.afterCreate(createCart)
 Customer.beforeUpdate(hashPassword)
 Customer.beforeBulkCreate(customers => Promise.all(customers.map(hashPassword)))
