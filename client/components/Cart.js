@@ -43,22 +43,17 @@ class Cart extends React.Component {
   componentDidUpdate() {
     // we check to see if the order on the state is an empty object
     // if it is and the order on props exists, we set the state to the order on props
-    console.log("CART IS UPDATING")
 
     if (JSON.parse(window.localStorage.getItem("order"))) {
       if ( JSON.stringify(this.state.order) !== window.localStorage.getItem('order') ) {
 
-        console.log("LOCAL STORAGE ORDER:", window.localStorage.getItem('order'))
         const localCart = JSON.parse(window.localStorage.getItem("order"));
 
         if(localCart) {
           this.setState({
             order: localCart
           })
-        } 
-          // this.setState({
-          //   order: {}
-          // })
+          }
         }
       } else {
         window.localStorage.setItem('order', JSON.stringify({}))

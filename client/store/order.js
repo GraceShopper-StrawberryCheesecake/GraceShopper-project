@@ -20,7 +20,6 @@ const _syncCart = (orderId) => ({
 })
 
 export const updateOrder = (order) => {
-    console.log('order in update order', order)
     return dispatch => {
         dispatch(_setOrder(order))
     }
@@ -39,11 +38,9 @@ export const fetchOrder = (userId) => {
 }
 
 export const syncCartToDataBase = (cartId) => {
-    console.log('cartId', cartId)
     return async dispatch => {
         try {
             const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
-            console.log('localStorageOrder', localStorageOrder)
             await axios.put(`/api/orders/${cartId}`, localStorageOrder)
             dispatch(_syncCart(cartId))
         } catch (error) {
@@ -65,23 +62,27 @@ export const mergeCart = (dbCart) => {
 
     if(window.localStorage.getItem('order') !== JSON.stringify(dbOrder)) {
 
-    
-    for (let item in localOrder) {
-        if (!dbOrder[item]) {
-            dbOrder[item] = localOrder[item]
-        } else {
-            dbOrder[item] = dbOrder[item] + localOrder[item]
+        for (let itemId in localOrder) {
+            if (!dbOrder[itemId]) {
+                dbOrder[itemId] = localOrder[itemId]
+            } else {
+
+                for (let i = 0; i < dbCart.items.length; i++) {
+                    if (parseInt(itemId) === dbCart.items[i].id && dbOrder[itemId] + localOrder[itemId] > dbCart.items[i].quantity) {
+                        dbOrder[itemId] = dbCart.items[i].quantity
+                        break
+                    } else {
+                       dbOrder[itemId] = dbOrder[itemId] + localOrder[itemId]
+                    }
+                }
+            }
         }
-    }
 
+        const mergedOrder = dbOrder
+        window.localStorage.setItem('order', JSON.stringify(mergedOrder))
+        syncCartToDataBase(dbCart.id)
 
-    const mergedOrder = dbOrder
-
-    window.localStorage.setItem('order', JSON.stringify(mergedOrder))
-
-    syncCartToDataBase(dbCart.id)
-
-    return mergedOrder
+        return mergedOrder
     }
 }
 
