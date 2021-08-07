@@ -5,13 +5,15 @@ import { logout } from "../store";
 import Cart from "./Cart"
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
-  
+
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
   return (
     <div className="navbar-container">
       <div className="logo">
-        <img src="/cheesecakeIcon2.svg" />
+        <Link to="/home">
+          <img src="/cheesecakeIcon2.svg" />
+          </Link>
         <h1>Chaotic Cheesecake</h1>
       </div>
       <nav>
@@ -29,6 +31,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
         ) : (
           <div className="nav-links-div">
             {/* The navbar will show these links before you log in */}
+            <Link to="/items">Products</Link>
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
             <div className="cart-button" onClick={() => setCartIsOpen(!cartIsOpen)} >
@@ -36,7 +39,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             </div>
           </div>
         )}
-        {cartIsOpen && <Cart />} 
+        {cartIsOpen && <Cart />}
       </nav>
     </div>
   );
