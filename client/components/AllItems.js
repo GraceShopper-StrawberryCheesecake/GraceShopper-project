@@ -44,7 +44,7 @@ class AllItems extends React.Component {
                                         <div>In Stock</div>
                                         {/* <Button variant="outlined">add to cart</Button> */}
 
-                                        <button value={item.id} onClick={(event) => this.handleClick(event)}>Add to cart</button>
+                                        <button value={item.id} onClick={(event) => this.handleClick(event, item.quantity)}>Add to cart</button>
                                         {this.props.isAdmin ? (
                                             <Button color="secondary" variant="outlined" onClick={() => this.handleDelete(item.id)}>Delete</Button>
                                         ) : (null)}
@@ -60,11 +60,11 @@ class AllItems extends React.Component {
         )
     }
 
-    handleClick(event) {
-        this.addItemToCart(event.target.value)
+    handleClick(event, quantity) {
+        this.addItemToCart(event.target.value, quantity)
     }
 
-    addItemToCart(itemId) {
+    addItemToCart(itemId, quantity) {
         const oldCart = JSON.parse(window.localStorage.getItem('order'));
         let newCart = {}
         if (!oldCart) {
@@ -72,7 +72,9 @@ class AllItems extends React.Component {
         } else {
             newCart = oldCart
             if (Object.keys(oldCart).includes(itemId)) {
-                newCart[itemId] = oldCart[itemId] +1
+                if (oldCart[itemId] < quantity) {
+                    newCart[itemId] = oldCart[itemId] +1
+                }
             } else {
                 newCart[itemId] = 1
             }
