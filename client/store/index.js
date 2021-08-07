@@ -5,7 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import items from './items'
 import singleItemReducer from './singleItem'
-import orderReducer from './order'
+import orderReducer, { updateOrder } from './order'
 import customers from './customers'
 import singleCustomer from './singleCustomer'
 
@@ -17,3 +17,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './auth'
+export * from './order'

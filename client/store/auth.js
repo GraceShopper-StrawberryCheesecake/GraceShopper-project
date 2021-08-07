@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { mergeCart } from './order'
 
 const TOKEN = 'token'
 
@@ -24,6 +25,7 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
+    mergeCart(res.data.orders[0])
     return dispatch(setAuth(res.data))
   }
 }
@@ -40,6 +42,7 @@ export const authenticate = (email, password, method, name) => async dispatch =>
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
+  window.localStorage.removeItem('order')
   history.push('/login')
   return {
     type: SET_AUTH,
