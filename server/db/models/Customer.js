@@ -2,6 +2,8 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
+const Order = require('../models/Order')
+const Item = require('../models/Item')
 
 if(process.env.NODE_ENV !== 'production') {
   require('../../../secrets')
@@ -63,7 +65,14 @@ Customer.findByToken = async function(token) {
   try {
     console.log("TOKEN IN Customer.js: ", token)
     const {id} = await jwt.verify(token, process.env.JWT)
-    const customer = Customer.findByPk(id)
+    const customer = Customer.findByPk(id, {
+      include: {
+        model: Order,
+        where: {
+          orderComplete: false
+        },
+        include: Item
+      } })
     if (!customer) {
       throw 'nooo'
     }
@@ -84,7 +93,11 @@ const hashPassword = async(customer) => {
     customer.password = await bcrypt.hash(customer.password, SALT_ROUNDS);
   }
 }
+const createCart = async(customer) => {
+  const cart = await Order.create()
+  customer.addOrder(cart)
+}
 
-Customer.beforeCreate(hashPassword)
+Customer.beforeCreate(hashPassword, createCart)
 Customer.beforeUpdate(hashPassword)
 Customer.beforeBulkCreate(customers => Promise.all(customers.map(hashPassword)))

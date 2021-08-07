@@ -1,7 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 a {
@@ -20,14 +30,18 @@ label {
 }
 
 .logo img {
+  position: fixed;
   width: 80px;
-  margin-right: 25px;
   transform: translateY(-10px);
 }
 
 .logo {
   display: flex;
   align-items: center;
+}
+
+.logo h1 {
+  margin-left: 90px;
 }
 
 nav a {
@@ -38,12 +52,14 @@ nav a {
 .nav-links-div {
   display: flex;
   align-items: center;
+  margin-right: 50px;
 }
 
 .cart-button img {
+  position: fixed;
+  top: 35px;
+  right: 30px;
   width: 30px;
-  margin-left: 10px;
-  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -102,7 +118,24 @@ form div {
   min-width: 80px;
 }
 
+#cart {
+  position: fixed;
+  padding: 20px;
+  right: 0;
+  top: 70px;
+  border: solid black 2px;
+  margin-right: 10px;
+  border-radius: 3%;
+  animation: .5s ease-out 0s 1 slideInFromRight;
+}
+
+#cart h1 {
+  margin-top: 0
+  }
+
+
 /* below is styling for AllCustomers & SingleCustomers */
+
 .allCustomers {
   display: flex;
   flex-direction: column;
