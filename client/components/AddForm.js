@@ -29,7 +29,7 @@ class AddForm extends React.Component {
             this.setState({item: {...this.state.item, [evt.target.name]: evt.target.value}})
         }
     }
-    
+
     async handleSubmit(evt) {
         evt.preventDefault()
         if(this.props.match.url.includes('customer')) {
@@ -44,7 +44,7 @@ class AddForm extends React.Component {
     render() {
         const {url} = this.props.match
         return(
-            <div>
+            <div className="addCustomersAndItems">
                 {url.includes('customer') ? (
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='name'>Name</label>
@@ -52,22 +52,22 @@ class AddForm extends React.Component {
 
                         <label htmlFor='email'>Email</label>
                         <input type="text" name="email" onChange={this.handleChange}/>
-                        
+
                         <label htmlFor='password'>Password</label>
                         <input type="password" name="password" onChange={this.handleChange}/>
                         <br/>
 
-                        <button type="submit">Add Customer</button>
+                        <button id="addCustButt" type="submit">Add Customer</button>
                     </form>
                 ) : (
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='name'>Name</label>
                         <input type="text" name="name" onChange={this.handleChange}/>
 
-                        
+
                         <label htmlFor='quantity'>Quantity</label>
                         <input type="number" min="0" name="quantity" onChange={this.handleChange}/>
-                        
+
                         <label htmlFor='price'>Price</label>
                         <input type="number" step="0.01" min="0" name="price" onChange={this.handleChange}/>
 
@@ -75,10 +75,10 @@ class AddForm extends React.Component {
                         <input type="text" name="imgUrl" onChange={this.handleChange}/>
 
                         <label htmlFor='description'>Description</label>
-                        <input type="text" name="description" onChange={this.handleChange}/>
+                        <textarea type="text" name="description" onChange={this.handleChange}/>
                         <br/>
 
-                        <button type="submit">Add Item</button>
+                        <button id="addItemButt" type="submit">Add Item</button>
                     </form>
                 )}
             </div>

@@ -52,7 +52,9 @@ class Navbar extends React.Component {
     return (
       <div className="navbar-container">
         <div className="logo">
+          <Link to="/home">
           <img src="/cheesecakeIcon2.svg" />
+          </Link>
           <h1>Chaotic Cheesecake</h1>
         </div>
         <nav>
@@ -70,6 +72,7 @@ class Navbar extends React.Component {
           ) : (
             <div className="nav-links-div">
               {/* The navbar will show these links before you log in */}
+              <Link to="/items">Products</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
               <div className="cart-button" onClick={() => this.setCartIsOpen(!this.state.cartIsOpen)} >
@@ -87,9 +90,6 @@ class Navbar extends React.Component {
 
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
