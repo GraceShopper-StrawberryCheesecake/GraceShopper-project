@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout, updateOrder } from "../store";
+import { syncCartToDataBase } from "../store/order"
 import Cart from "./Cart"
 
-const Navbar = ({ handleClick, isLoggedIn }) => {
-  
+const Navbar = ({ handleClick, isLoggedIn, customer }) => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
           <div className="nav-links-div">
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
+            <a href="#" onClick={() => handleClick(customer.orders[0].id)}>
               Logout
             </a>
             <div className="cart-button" onClick={() => setCartIsOpen(!cartIsOpen)} >
@@ -48,12 +48,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    customer: state.auth
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
+    handleClick(cartId) {
+      dispatch(syncCartToDataBase(cartId))
       dispatch(logout());
       dispatch(updateOrder({}))
     },
