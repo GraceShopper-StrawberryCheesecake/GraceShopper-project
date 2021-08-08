@@ -10,6 +10,7 @@ import AllCustomers from './components/AllCustomers'
 import SingleCustomers from './components/SingleCustomer'
 import UpdateForm from './components/UpdateForm'
 import AddForm from './components/AddForm'
+import Checkout from './components/Checkout';
 
 /**
  * COMPONENT
@@ -30,13 +31,14 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
             <Route exact path="/items/:id" component={SingleItem} />
+            <Route path="/checkout" component={Checkout}/>
             {isAdmin ? (
               <React.Fragment>
                 <Route exact path="/customers" component={AllCustomers} />
-                <Route exact path="/customer/add" component={AddForm} />
+                <Route path="/customer/add" component={AddForm} />
                 <Route exact path="/customers/:customerId" component={SingleCustomers} />
                 <Route path="/customers/:customerId/update" component={UpdateForm} />
-                <Route exact path="/item/add" component={AddForm} />
+                <Route path="/item/add" component={AddForm} />
                 <Route exact path="/items/:itemId/update" component={UpdateForm} />
                 <Redirect to="/home" />
               </React.Fragment>
@@ -45,12 +47,13 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path='/' exact component={ Login } />
+            <Route path='/' exact component={ Home } />
             <Route path="/home" component={Home} />
             <Route exact path="/items" component={AllItems} />
             <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/checkout" component={Checkout}/>
             <Redirect to="/home" />
           </Switch>
         )}
