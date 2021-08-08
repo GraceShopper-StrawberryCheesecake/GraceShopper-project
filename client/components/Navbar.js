@@ -40,8 +40,10 @@ class Navbar extends React.Component {
   }
 
   async componentCleanup() {
-    await this.props.syncCart(this.props.customer.orders[0].id)
-    window.localStorage.setItem('order', JSON.stringify({}))
+    if(this.props.isLoggedIn) {
+      await this.props.syncCart(this.props.customer.orders[0].id)
+      window.localStorage.setItem('order', JSON.stringify({}))
+    }
   }
 
   render() {
