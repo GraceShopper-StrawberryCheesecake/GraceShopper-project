@@ -9,7 +9,6 @@
   }
 }
 
-
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -122,20 +121,41 @@ form div {
 
 #cart {
   position: fixed;
+  width: 300px;
   padding: 20px;
   right: 0;
-  top: 70px;
+  top: 80px;
   border: solid black 2px;
-  margin-right: 10px;
+  margin-right: 20px;
   border-radius: 3%;
-  animation: .5s ease-out 0s 1 slideInFromRight;
+  animation: 0.5s ease-out 0s 1 slideInFromRight;
 }
 
 #cart h1 {
-  margin-top: 0
-  }
+  margin-top: 0;
+  font-size: 20px;
+  padding-bottom: 5px;
+  border-bottom: solid gray 1px;
+}
 
+.cart-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 5px;
+}
 
+.cart-items label {
+  flex: 1;
+}
+
+.cart-items button {
+  margin-left: 5px;
+  background-color: white;
+  box-shadow: 1px 1px 2px grey;
+  border: solid black 1px;
+}
 /* below is styling for AllCustomers & SingleCustomers */
 
 .allCustomers {
@@ -183,17 +203,17 @@ input {
 
 #updateCustomerButt {
   text-align: center;
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 #updateItemButt {
   text-align: center;
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
-textarea[name=description] {
+textarea[name="description"] {
   width: 300px;
   height: 100px;
   font-family: Arial, Helvetica, sans-serif;
@@ -208,12 +228,12 @@ textarea[name=description] {
 
 #addItemButt {
   text-align: center;
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
 #addCustButt {
   text-align: center;
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
