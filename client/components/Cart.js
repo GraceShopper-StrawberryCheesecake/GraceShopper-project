@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchOrder } from "../store/order";
 import { fetchItems } from "../store/items";
 import { FormControl, InputLabel, Input, TextField, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
   constructor() {
@@ -116,7 +117,7 @@ class Cart extends React.Component {
                 >X</button>
               </div>
             ))}
-            <Button variant="outlined" style={{ width: '100%', marginTop: '10px' }} >Checkout</Button>
+            <Button variant="outlined" style={{ width: '100%', marginTop: '10px' }}><Link to="/checkout">Checkout</Link></Button>
         </div>
       </div>
     );
