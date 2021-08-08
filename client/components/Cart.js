@@ -96,10 +96,11 @@ class Cart extends React.Component {
       Object.keys(this.state.order).includes(String(item.id))
       );
       const orderTotal = cartItems.length > 0 && cartItems.reduce((accum, item) => accum + item.price * this.state.order[item.id], 0)
-      console.log(cartItems)
+      console.log(Object.values(this.state.order))
+      const numOfItems = Object.values(this.state.order).reduce((accum, quantity) => accum + quantity, 0)
     return (
       <div id="cart">
-        <h1>Items in your cart</h1>
+        <h1>{numOfItems} items in your cart</h1>
         <div>
           {Object.keys(this.state.order).length > 0 &&
             cartItems.map((item, index) => (
@@ -119,7 +120,7 @@ class Cart extends React.Component {
                 >X</button>
               </div>
             ))}
-            <div id="cart-total"><h3>total:{" "}</h3><p>$ {orderTotal/100}</p></div>
+            <div id="cart-total"><h3>total:</h3><p>$ {orderTotal/100}</p></div>
             <Link to="/checkout" id='checkout-button-div'><Button variant="outlined" style={{ width: '100%', marginTop: '10px' }}>Checkout</Button></Link>
         </div>
       </div>

@@ -248,3 +248,7 @@ textarea[name="description"] {
   align-items: baseline;
   justify-content: flex-end;
 }
+
+#cart-total h3 {
+  margin-right: 10px
+}
