@@ -237,3 +237,14 @@ textarea[name="description"] {
   display: block;
   margin: 0 auto;
 }
+
+#checkout-button-div {
+  display: flex;
+  justify-content: center;
+}
+
+#cart-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
