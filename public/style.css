@@ -3,9 +3,11 @@
 @keyframes slideInFromRight {
   0% {
     transform: translateX(100%);
+    opacity: 0;
   }
   100% {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -105,7 +107,8 @@ form div {
 .item img {
   width: 400px;
   height: 400px;
-  border-radius: 8px;
+  border-radius: 8px 0 0 8px;
+  cursor: pointer;
 }
 
 .description {
@@ -128,7 +131,7 @@ form div {
   border: solid black 2px;
   margin-right: 20px;
   border-radius: 3%;
-  animation: 0.5s ease-out 0s 1 slideInFromRight;
+  transition: transform .5s ease;
 }
 
 #cart h1 {
@@ -138,7 +141,16 @@ form div {
   border-bottom: solid gray 1px;
 }
 
+.hidden-cart {
+  transform: translateX(110%);
+}
+
+.visible-cart {
+  transform: translateX(0);
+}
+
 .cart-items {
+  animation: 0.5s ease-out 0s 1 slideInFromRight;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -157,6 +169,11 @@ form div {
   border: solid black 1px;
 }
 /* below is styling for AllCustomers & SingleCustomers */
+
+.cartImg {
+  width: 70px;
+  margin-right: 10px;
+}
 
 .allCustomers {
   display: flex;
@@ -252,3 +269,5 @@ textarea[name="description"] {
 #cart-total h3 {
   margin-right: 10px
 }
+
+
