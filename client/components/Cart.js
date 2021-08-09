@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { fetchOrder } from "../store/order";
 import { fetchItems } from "../store/items";
 import { FormControl, InputLabel, Input, TextField, Button } from "@material-ui/core";
-import { Link } from "react-router-dom"
+
+import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
   constructor() {
@@ -121,8 +122,10 @@ class Cart extends React.Component {
                 >X</button>
               </div>
             ))}
+
             <div id="cart-total"><h3>total:</h3><p>$ {parseFloat(orderTotal/100).toFixed(2)}</p></div>
             <Link to="/checkout" id='checkout-button-div'><Button variant="outlined" style={{ width: '100%', marginTop: '10px' }}>Checkout</Button></Link>
+
         </div>
       </div>
     );

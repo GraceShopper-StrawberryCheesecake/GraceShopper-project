@@ -41,8 +41,9 @@ export const syncCartToDataBase = (cartId) => {
     return async dispatch => {
         try {
             const localStorageOrder = JSON.parse(window.localStorage.getItem('order'))
-            await axios.put(`/api/orders/${cartId}`, localStorageOrder)
+            const { data } = await axios.put(`/api/orders/${cartId}`, localStorageOrder)
             dispatch(_syncCart(cartId))
+            return data
         } catch (error) {
             console.log('failed to sync cart')
         }
