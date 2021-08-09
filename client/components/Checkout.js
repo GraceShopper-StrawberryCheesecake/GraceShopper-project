@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { me } from '../store/auth'
-import { syncCartToDataBase } from '../store/order'
+import { syncCartToDataBase, updateOrder } from '../store/order'
 import axios from 'axios'
 
 
@@ -66,15 +66,17 @@ class Checkout extends React.Component {
         let order = this.state.cart;
         delete order[itemId];
         window.localStorage.setItem("order", JSON.stringify(order));
-        this.state.isLoggedIn && this.props.syncCart(this.props.customer.orders[0].id)
+        console.log("LOCAL STORAGE ORDER ", window.localStorage.getItem('order'))
+        this.props.updateOrder(order)
 
+        this.state.isLoggedIn && this.props.syncCart(this.props.customer.orders[0].id)
         const itemsArr = []
         for(let id in order) {
             const {data} = await axios.get(`/api/items/${id}`)
             itemsArr.push(data)
         }
 
-    this.setState({cart: order, itemsArr: itemsArr});
+        this.setState({cart: order, itemsArr: itemsArr});
     }
 
     render() {
@@ -122,7 +124,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
     getCustomerInfo: () => dispatch(me()),
-    syncCart: (id) => dispatch(syncCartToDataBase(id))
+    syncCart: (id) => dispatch(syncCartToDataBase(id)),
+    updateOrder: (order) => dispatch(updateOrder(order))
 })
 
 export default connect(mapState, mapDispatch)(Checkout)
