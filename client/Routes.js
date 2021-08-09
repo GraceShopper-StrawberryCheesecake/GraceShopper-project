@@ -11,6 +11,14 @@ import SingleCustomers from './components/SingleCustomer'
 import UpdateForm from './components/UpdateForm'
 import AddForm from './components/AddForm'
 import Checkout from './components/Checkout';
+import OrderHistory from './components/OrderHistory';
+
+
+function FourOhFour() {
+  return (
+    <h1>Something went wrong 404.</h1>
+  )
+}
 
 /**
  * COMPONENT
@@ -34,6 +42,7 @@ class Routes extends Component {
             <Route path="/checkout" component={Checkout}/>
             <Route exact path="/customers/:customerId" component={SingleCustomers} />
             <Route exact path="/customers/:customerId/update" component={UpdateForm} />
+            <Route exact path="/orderHistory" component={OrderHistory} />
             {isAdmin ? (
               <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
@@ -54,7 +63,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/checkout" component={Checkout}/>
-            <Redirect to="/home" />
+            <Route path="/*" component={FourOhFour} />
           </Switch>
         )}
       </div>
