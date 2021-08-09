@@ -17,6 +17,7 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 label {
@@ -132,6 +133,8 @@ form div {
   margin-right: 20px;
   border-radius: 3%;
   transition: transform .5s ease;
+  z-index: 1;
+  background-color: white;
 }
 
 #cart h1 {

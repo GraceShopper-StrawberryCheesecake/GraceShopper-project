@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from "@material-ui/core";
 
 /**
- * COMPONENT
+ *  Hi Sarah
  */
 export const Home = props => {
   const {name} = props.auth

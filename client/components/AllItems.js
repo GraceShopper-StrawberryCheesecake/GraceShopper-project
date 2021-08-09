@@ -5,6 +5,8 @@ import { Button } from '@material-ui/core'
 import { updateOrder } from '../store/order'
 import { me } from '../store/auth';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+import { green } from '@material-ui/core/colors'
 
 
 class AllItems extends React.Component {
@@ -35,13 +37,13 @@ class AllItems extends React.Component {
                         <div key={item.id} className="item" >
                             <img src={item.imgUrl} onClick={() => {this.props.history.push(`/items/${item.id}`)}}/>
                             <div className="content">
-                                <h2>{item.name}</h2>
+                                <Link to={`/items/${item.id}`}><h2>{item.name}</h2></Link>
                                 <h3>item description</h3>
                                 <div className="description">{item.description}</div>
                                 <div>Price: ${parseFloat(item.price/100).toFixed(2)}</div>
                                 {item.quantity > 0 ? (
                                     <div id="stock">
-                                        <div>In Stock</div>
+                                        <div style={ {color: 'green'}}>In Stock</div>
                                         {/* <Button variant="outlined">add to cart</Button> */}
                                         <button value={item.id} onClick={(event) => this.handleClick(event, item.quantity)}>Add to cart</button>
                                         {this.props.isAdmin ? (
@@ -49,7 +51,7 @@ class AllItems extends React.Component {
                                         ) : (null)}
                                     </div>
                                 ) : (
-                                    <div id="stock">Out of Stock</div>
+                                    <div id="stock" style={{color: 'red'}}>Out of Stock</div>
                                 )}
                             </div>
                         </div>

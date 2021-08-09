@@ -4,12 +4,15 @@ import { fetchSingleItem } from "../store/singleItem";
 import { Button } from "@material-ui/core";
 import {me} from '../store/auth'
 import axios from "axios";
+import { updateOrder } from "../store";
 
 class SingleItem extends React.Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleClickAdditem = this.handleClickAdditem.bind(this)
+    this.addItemToCart = this.addItemToCart.bind(this)
   }
 
   componentDidMount() {
@@ -29,6 +32,31 @@ class SingleItem extends React.Component {
     this.props.history.push('/items')
   }
 
+
+  handleClickAdditem(event, quantity) {
+    this.addItemToCart(event.target.value, quantity)
+  }
+
+  addItemToCart(itemId, quantity) {
+      const oldCart = JSON.parse(window.localStorage.getItem('order'));
+      let newCart = {}
+      if (!oldCart) {
+          newCart = { [itemId]: 1}
+      } else {
+          newCart = oldCart
+          if (Object.keys(oldCart).includes(itemId)) {
+              if (oldCart[itemId] < quantity) {
+                  newCart[itemId] = oldCart[itemId] +1
+              }
+          } else {
+              newCart[itemId] = 1
+          }
+      }
+      window.localStorage.setItem('order', JSON.stringify(newCart))
+      this.props.updateOrder(newCart)
+  }
+
+
   render() {
     const item = this.props.item;
     return (
@@ -41,7 +69,7 @@ class SingleItem extends React.Component {
           </p>
           <div id="price-and-button">
           <p> price: $ {item.price/100}</p>
-          <Button variant="outlined">Add to cart</Button>
+          <button value={item.id} onClick={(event) => this.handleClickAdditem(event, item.quantity)}>Add to cart</button>
           {this.props.isAdmin ? (
             <React.Fragment>
               <Button onClick={() => this.handleClick(item.id)}variant="outlined" color="primary">Update Info</Button>
@@ -65,7 +93,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getSingleItem: (id) => dispatch(fetchSingleItem(id)),
-    getAuth: () => dispatch(me())
+    getAuth: () => dispatch(me()),
+    updateOrder: (order) => dispatch(updateOrder(order))
   };
 };
 
