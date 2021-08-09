@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { models: { Customer, Order, Item }} = require('../db')
+const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 module.exports = router
 
 
@@ -7,6 +8,7 @@ router.put('/:id', async (req, res, next) => {
     try {
         let order = await Order.findByPk(req.params.id)
         if(order) {
+          console.log('i fired in api routes') 
           await order.removeItems(await order.getItems())
   
           const items = req.body
@@ -17,7 +19,7 @@ router.put('/:id', async (req, res, next) => {
           }
           res.json(req.body)
         } else {
-          
+          console.log('didnt fire in correct route')
           order = await Order.create({orderComplete: true})
           const items = req.body
           
@@ -38,9 +40,22 @@ router.get('/:id', async (req, res, next) => {
       {orderComplete: true},
       {where: {id: req.params.id}}
       )
-
     const order = await Order.create()
 
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/updateorder/:id', requireToken, async (req, res, next) => {
+  try {
+      const order = await Order.findByPk(req.params.id)
+      await order.update({orderComplete: true})
+
+      const newOrder = await Order.create()
+      await req.customer.addOrder(newOrder)
+      
+      res.json(newOrder)
   } catch (error) {
     next(error)
   }
