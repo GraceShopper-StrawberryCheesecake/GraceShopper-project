@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchOrder } from "../store/order";
 import { fetchItems } from "../store/items";
 import { FormControl, InputLabel, Input, TextField, Button } from "@material-ui/core";
+
 import { Link } from "react-router-dom";
 
 class Cart extends React.Component {
@@ -93,15 +94,19 @@ class Cart extends React.Component {
   render() {
     // filter over the items array check if the order object contains the item id
     const cartItems = this.props.items.filter((item) =>
-      Object.keys(this.state.order).includes(String(item.id))
+    Object.keys(this.state.order).includes(String(item.id))
     );
+      const orderTotal = cartItems.length > 0 && cartItems.reduce((accum, item) => accum + item.price * this.state.order[item.id], 0)
+      console.log(Object.values(this.state.order))
+      const numOfItems = Object.values(this.state.order).reduce((accum, quantity) => accum + quantity, 0)
     return (
-      <div id="cart">
-        <h1>Items in your cart</h1>
+      <div id="cart" className={this.props.open ? 'visible-cart' : 'hidden-cart'}>
+        <h1>{numOfItems} {numOfItems === 1 ? 'item' : 'items'} in your cart</h1>
         <div>
           {Object.keys(this.state.order).length > 0 &&
             cartItems.map((item, index) => (
               <div key={index} className="cart-items">
+                <img className='cartImg' src={item.imgUrl}/>
                 <InputLabel>{item.name}</InputLabel>{" "}
                 <TextField
                   type="number"
@@ -117,7 +122,10 @@ class Cart extends React.Component {
                 >X</button>
               </div>
             ))}
-            <Button variant="outlined" style={{ width: '100%', marginTop: '10px' }}><Link to="/checkout">Checkout</Link></Button>
+
+            <div id="cart-total"><h3>total:</h3><p>$ {parseFloat(orderTotal/100).toFixed(2)}</p></div>
+            <Link to="/checkout" id='checkout-button-div'><Button variant="outlined" style={{ width: '100%', marginTop: '10px' }}>Checkout</Button></Link>
+
         </div>
       </div>
     );

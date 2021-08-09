@@ -47,7 +47,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-
+    console.log(this.state.cartIsOpen)
     // const [cartIsOpen, setCartIsOpen] = useState(false);
     const { isLoggedIn, customer } = this.props
 
@@ -84,7 +84,7 @@ class Navbar extends React.Component {
               </div>
             </div>
           )}
-          {this.state.cartIsOpen && <Cart />} 
+          {<Cart open={this.state.cartIsOpen}/>} 
         </nav>
       </div>
     );
