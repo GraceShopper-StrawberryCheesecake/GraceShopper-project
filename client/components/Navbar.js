@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout, updateOrder } from "../store";
+import { sendMail } from "../store/mailer";
 import { syncCartToDataBase } from "../store/order"
 import Cart from "./Cart"
 
@@ -45,6 +46,7 @@ class Navbar extends React.Component {
       window.localStorage.setItem('order', JSON.stringify({}))
     }
   }
+
 
   render() {
     const { isLoggedIn, customer } = this.props
@@ -104,7 +106,6 @@ const mapDispatch = (dispatch) => {
     syncCart: (cartId) => dispatch(syncCartToDataBase(cartId)),
     logout: () => dispatch(logout()),
     updateOrder: (order) => dispatch(updateOrder(order))
-
   };
 };
 
