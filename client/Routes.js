@@ -33,7 +33,7 @@ class Routes extends Component {
             <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/checkout" component={Checkout}/>
             {isAdmin ? (
-              <React.Fragment>
+              <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
                 <Route path="/customer/add" component={AddForm} />
                 <Route exact path="/customers/:customerId" component={SingleCustomers} />
@@ -41,7 +41,7 @@ class Routes extends Component {
                 <Route path="/item/add" component={AddForm} />
                 <Route exact path="/items/:itemId/update" component={UpdateForm} />
                 <Redirect to="/home" />
-              </React.Fragment>
+              </Switch>
             ): (null)}
             <Redirect to="/home" />
           </Switch>
