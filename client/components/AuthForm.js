@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {authenticate} from '../store'
+import {authenticate } from '../store'
+import { mergeCart } from '../store/order'
 
 /**
  * COMPONENT
@@ -10,7 +11,7 @@ const AuthForm = props => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={(evt) => handleSubmit(evt, props.customer)} name={name}>
         {props.displayName === "Sign Up" ? (
         <div>
           <label htmlFor="username">
@@ -51,7 +52,7 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.auth.error
+    error: state.auth.error,
   }
 }
 
@@ -59,13 +60,13 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.auth.error
+    error: state.auth.error,
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    handleSubmit(evt, customer) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value

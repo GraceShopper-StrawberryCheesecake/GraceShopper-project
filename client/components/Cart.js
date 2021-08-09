@@ -5,6 +5,7 @@ import { fetchItems } from "../store/items";
 import { FormControl, InputLabel, Input, TextField, Button } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 class Cart extends React.Component {
   constructor() {
@@ -20,8 +21,8 @@ class Cart extends React.Component {
   // otherwise, we pull from window.localStorage and setState
   componentDidMount() {
     this.props.getItems();
-    if (this.props.customerId) {
-      this.props.getOrder(this.props.customerId);
+    if (this.props.customer.id) {
+      this.props.getOrder(this.props.customer.id);
     } else {
       const order = JSON.parse(window.localStorage.getItem("order"));
       if (order) {
@@ -33,7 +34,7 @@ class Cart extends React.Component {
   }
 
   // it removed a key from the order object
-  handleRemoveItem(itemId) {
+  async handleRemoveItem(itemId) {
     let order = this.state.order;
     delete order[itemId];
     window.localStorage.setItem("order", JSON.stringify(order));
@@ -75,9 +76,9 @@ class Cart extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    window.localStorage.setItem("order", JSON.stringify(this.state.order));
-  }
+  // componentWillUnmount() {
+  //   window.localStorage.setItem("order", JSON.stringify(this.state.order));
+  // }
 
   handleChangeQuantity(event) {
     event.persist();
@@ -104,8 +105,8 @@ class Cart extends React.Component {
         <h1>{numOfItems} {numOfItems === 1 ? 'item' : 'items'} in your cart</h1>
         <div>
           {Object.keys(this.state.order).length > 0 &&
-            cartItems.map((item, index) => (
-              <div key={index} className="cart-items">
+            cartItems.map(item => (
+              <div key={item.id} className="cart-items">
                 <img className='cartImg' src={item.imgUrl}/>
                 <InputLabel>{item.name}</InputLabel>{" "}
                 <TextField
@@ -133,7 +134,7 @@ class Cart extends React.Component {
 }
 
 const mapState = (state) => ({
-  customerId: state.auth.id,
+  customer: state.auth,
   order: state.orderReducer,
   items: state.items,
 });

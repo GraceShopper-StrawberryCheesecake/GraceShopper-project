@@ -64,7 +64,6 @@ class Navbar extends React.Component {
             <div className="nav-links-div">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
-              <Link to="/checkout">Checkout</Link>
               <a href="#" onClick={() => this.handleClick(customer.orders[0].id)}>
                 Logout
               </a>
@@ -78,7 +77,7 @@ class Navbar extends React.Component {
               <Link to="/items">Products</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              <Link to="/checkout">Checkout</Link>
+              {/* <Link to="/checkout">Checkout</Link> */}
               <div className="cart-button" onClick={() => this.setCartIsOpen(!this.state.cartIsOpen)} >
                 <img src="/shopping-cart.svg" />
               </div>
