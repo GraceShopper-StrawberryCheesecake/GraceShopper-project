@@ -76,3 +76,18 @@ router.get('/:customerId/cart', async (req, res, next) => {
   }
 })
 
+router.get('/orders/orderHistory', requireToken, async (req, res, next) => {
+
+  try {
+    const order = await Order.findAll({
+      where: {
+        orderComplete: true,
+        customerId: parseInt(req.customer.id)
+      },
+      include: {model: Item}
+    })
+    res.send(order)
+  } catch (error) {
+    next(error)
+  }
+})
