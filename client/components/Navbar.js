@@ -64,6 +64,7 @@ class Navbar extends React.Component {
             <div className="nav-links-div">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
+              <Link to={`/customers/${customer.id}`}>Account</Link>
               <a href="#" onClick={() => this.handleClick(customer.orders[0].id)}>
                 Logout
               </a>

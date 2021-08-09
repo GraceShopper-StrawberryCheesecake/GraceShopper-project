@@ -32,12 +32,12 @@ class Routes extends Component {
             <Route exact path="/items" component={AllItems} />
             <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/checkout" component={Checkout}/>
+            <Route exact path="/customers/:customerId" component={SingleCustomers} />
+            <Route exact path="/customers/:customerId/update" component={UpdateForm} />
             {isAdmin ? (
               <Switch>
                 <Route exact path="/customers" component={AllCustomers} />
                 <Route path="/customer/add" component={AddForm} />
-                <Route exact path="/customers/:customerId" component={SingleCustomers} />
-                <Route path="/customers/:customerId/update" component={UpdateForm} />
                 <Route path="/item/add" component={AddForm} />
                 <Route exact path="/items/:itemId/update" component={UpdateForm} />
                 <Redirect to="/home" />

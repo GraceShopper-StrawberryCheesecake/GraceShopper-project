@@ -33,7 +33,7 @@ router.delete('/:id', requireToken, isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const customer = await Customer.findByPk(req.params.id)
     await customer.update(req.body)
@@ -44,12 +44,19 @@ router.put('/:id', requireToken, isAdmin, async (req, res, next) => {
 })
 
 
-router.get('/:id', requireToken, isAdmin, async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
-    const customer = await Customer.findOne({where: {id: req.params.id}},{
-      attributes: ['id', 'name', 'email']
-    })
-    res.send(customer)
+    if(req.customer.isAdmin) {
+      const customer = await Customer.findOne({where: {id: req.params.id}},{
+        attributes: ['id', 'name', 'email']
+      })
+      res.send(customer)
+    } else {
+      const customer = await Customer.findOne({where: {id: req.customer.id}},{
+        attributes: ['id', 'name', 'email']
+      })
+      res.send(customer)
+    }
   } catch (error) {
     next(error)
   }

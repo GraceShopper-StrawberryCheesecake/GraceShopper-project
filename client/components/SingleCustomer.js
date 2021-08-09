@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleCustomer } from '../store/singleCustomer'
+import { me } from '../store'
 import axios from 'axios'
 
 class SingleCustomer extends React.Component {
@@ -11,8 +12,8 @@ class SingleCustomer extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
         this.props.getCustomer(this.props.match.params.customerId)
+        this.props.getAuth()
     }
 
     handleView(id) {
@@ -28,7 +29,7 @@ class SingleCustomer extends React.Component {
     }
 
     render() {
-        const { customer } = this.props
+        const { customer, isAdmin } = this.props
         return (
             <div className="singleCustomer">
                 {customer ? (
@@ -36,7 +37,7 @@ class SingleCustomer extends React.Component {
                         <div>{customer.name}</div>
                         <div>{customer.email}</div>
                         <button onClick={() => this.handleView(customer.id)}>Update</button>
-                        <button onClick={() => this.handleDelete(customer.id)}>Delete</button>
+                        {isAdmin && <button onClick={() => this.handleDelete(customer.id)}>Delete</button>}
                     </div>
                 ) : (null)}
 
@@ -46,11 +47,13 @@ class SingleCustomer extends React.Component {
 }
 
 const mapState = (state) => ({
-    customer: state.singleCustomer
+    customer: state.singleCustomer,
+    isAdmin: state.auth.isAdmin
 })
 
 const mapDispatch = (dispatch) => ({
-    getCustomer: (id) => dispatch(fetchSingleCustomer(id))
+    getCustomer: (id) => dispatch(fetchSingleCustomer(id)),
+    getAuth: () => dispatch(me())
 })
 
 export default connect(mapState, mapDispatch)(SingleCustomer)
