@@ -310,6 +310,7 @@ textarea[name="description"] {
   padding: 30px;
   cursor: pointer;
   font-size: 3vw;
+}
 
 .historyContainer {
   display: flex;
