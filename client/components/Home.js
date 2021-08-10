@@ -19,10 +19,8 @@ export const Home = props => {
           <Button onClick={() => {props.history.push('/customer/add')}}variant="outlined">add customers</Button>
           <Button onClick={() => {props.history.push('/items')}}variant="outlined">items</Button>
           <Button onClick={() => {props.history.push('/item/add')}}variant="outlined">add items</Button>
-
         </React.Fragment>
       ) : (null)}
-      {/* {name && <h3>Welcome, {name}</h3>} */}
       <div></div>
       <Link to='/items'>Checkout our selection of cheesecakes</Link>
       <img src="/cheesecakeicon.svg"/>

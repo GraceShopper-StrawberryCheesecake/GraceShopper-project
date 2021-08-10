@@ -57,9 +57,7 @@ class Cart extends React.Component {
     // we check to see if the order on the local storage exists
     // if it does, we check if it is the same as the state order
     // if they are different, we push the local storage on the state
-    // console.log("LOCAL STORAGE ON UPDATE", JSON.parse(window.localStorage.getItem("order")))
     if (JSON.parse(window.localStorage.getItem("order"))) {
-      // console.log("CART ORDER ON UPDATE: ", this.state.order)
       if (
         JSON.stringify(this.state.order) !==
         window.localStorage.getItem("order")
@@ -100,7 +98,6 @@ class Cart extends React.Component {
     Object.keys(this.state.order).includes(String(item.id))
     );
       const orderTotal = cartItems.length > 0 && cartItems.reduce((accum, item) => accum + item.price * this.state.order[item.id], 0)
-      console.log(Object.values(this.state.order))
       const numOfItems = Object.values(this.state.order).reduce((accum, quantity) => accum + quantity, 0)
       
     return (

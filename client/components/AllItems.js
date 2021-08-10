@@ -6,7 +6,6 @@ import { updateOrder } from '../store/order'
 import { me } from '../store/auth';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { green } from '@material-ui/core/colors'
 
 
 class AllItems extends React.Component {

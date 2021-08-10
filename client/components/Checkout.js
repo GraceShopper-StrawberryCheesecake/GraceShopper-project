@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { me } from '../store/auth'
 import { syncCartToDataBase, updateOrder } from '../store/order'
+import { sendMail } from '../store/mailer'
 import axios from 'axios'
 
 
@@ -19,6 +20,8 @@ class Checkout extends React.Component {
         }
         this.handleClick = this.handleClick.bind(this)
         this.handleRemoveItem = this.handleRemoveItem.bind(this)
+        this.createEmail = this.createEmail.bind(this)
+        this.sendMail = this.sendMail.bind(this)
     }
     
     //this checkout page has to check if the user is logged in or not in order to render the correct info. 
@@ -42,12 +45,42 @@ class Checkout extends React.Component {
         }
     }
     
+    createEmail(customer) {
+        let sum = 0
+        const { cart, itemsArr } = this.state
+        return (`
+            <html>
+                <body>
+                    Thank you ${customer.name} for your order with us!
+                    <div>
+                    ${itemsArr.map((item) => {
+                        sum = sum + (item.price * cart[item.id])
+                        return (
+                            `<div>
+                                <h3>${item.name}</h3>
+                                <div>Quantity: ${cart[item.id]}</div>
+                                <div> Price: ${(item.price * cart[item.id]) / 100}</div>
+                            </div>`
+                        )
+                    })}
+                        <h2>Total: ${sum / 100} </h2>
+                    </div>
+                </body>
+            </html>`
+        )
+    }
+
+    sendMail(customer) {
+        const content = this.createEmail(customer)
+        this.props.sendMail(customer.email, content)
+    }
     
     //then when clicking checkout
     //if your not logged in it will make an order in the database, set orderComplete to true, and add all the item as a child to the order while setting the quatity in the orderItems table
     //if logged in then it finds the order and sets that order to complete and makes a new order for the user in the database
     async handleClick() {
         if(this.state.isLoggedIn) {
+            this.sendMail(this.props.customer)
             this.props.syncCart(this.props.customer.orders[0].id)
             await axios.get(`/api/orders/updateorder/${this.props.customer.orders[0].id}`, {
                 headers: {
@@ -66,7 +99,7 @@ class Checkout extends React.Component {
         let order = this.state.cart;
         delete order[itemId];
         window.localStorage.setItem("order", JSON.stringify(order));
-        console.log("LOCAL STORAGE ORDER ", window.localStorage.getItem('order'))
+        console.log("LOCAL STORAGE ORDER ", order)
         this.props.updateOrder(order)
 
         this.state.isLoggedIn && this.props.syncCart(this.props.customer.orders[0].id)
@@ -100,7 +133,7 @@ class Checkout extends React.Component {
                                         sum = sum + (item.price * cart[item.id])
                                         return (
                                             <div className="ItemInfo" key={item.id}>
-                                                {/* <img src={item.imgUrl}/> */}
+                                                <img src={item.imgUrl} className="checkout-image"/>
                                                 <h3>{item.name}</h3>
                                                 <div>Quantity: {cart[item.id]}</div>
                                                 <div> Price: {(item.price * cart[item.id]) / 100}</div>
@@ -125,7 +158,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
     getCustomerInfo: () => dispatch(me()),
     syncCart: (id) => dispatch(syncCartToDataBase(id)),
-    updateOrder: (order) => dispatch(updateOrder(order))
+    updateOrder: (order) => dispatch(updateOrder(order)),
+    sendMail: (email,content) => dispatch(sendMail(email, content))
 })
 
 export default connect(mapState, mapDispatch)(Checkout)
