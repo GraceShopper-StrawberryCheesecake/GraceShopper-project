@@ -23,28 +23,28 @@ class Checkout extends React.Component {
         this.createEmail = this.createEmail.bind(this)
         this.sendMail = this.sendMail.bind(this)
     }
-    
-    //this checkout page has to check if the user is logged in or not in order to render the correct info. 
+
+    //this checkout page has to check if the user is logged in or not in order to render the correct info.
     //then i have to get all the items from local storage and put them in an array to be rendered to the page
     //isCheckedOut determines if the "thank you for purchase feild should be rendered"
     async componentDidMount() {
-        
+
         const cart = JSON.parse(window.localStorage.getItem('order'))
         const itemsArr = []
         for(let id in cart) {
             const {data} = await axios.get(`/api/items/${id}`)
             itemsArr.push(data)
         }
-        
+
         if(window.localStorage.getItem('token') !== null) {
             await this.props.getCustomerInfo()
             this.setState({cart: cart, itemsArr: itemsArr})
         } else {
             this.setState({isLoggedIn: false, cart: cart, itemsArr: itemsArr})
-            
+
         }
     }
-    
+
     createEmail(customer) {
         let sum = 0
         const { cart, itemsArr } = this.state
@@ -74,7 +74,7 @@ class Checkout extends React.Component {
         const content = this.createEmail(customer)
         this.props.sendMail(customer.email, content)
     }
-    
+
     //then when clicking checkout
     //if your not logged in it will make an order in the database, set orderComplete to true, and add all the item as a child to the order while setting the quatity in the orderItems table
     //if logged in then it finds the order and sets that order to complete and makes a new order for the user in the database
@@ -93,8 +93,8 @@ class Checkout extends React.Component {
         window.localStorage.removeItem('order')
         this.setState({isCheckedOut: !this.state.isCheckedOut})
     }
-    
-   
+
+
     async handleRemoveItem(itemId) {
         let order = this.state.cart;
         delete order[itemId];
@@ -132,12 +132,16 @@ class Checkout extends React.Component {
                                     {itemsArr.map((item, index) => {
                                         sum = sum + (item.price * cart[item.id])
                                         return (
-                                            <div className="ItemInfo" key={item.id}>
-                                                <img src={item.imgUrl} className="checkout-image"/>
+                                            <div className="itemContainer" key={item.id}>
+                                                <div className="imageAndName">
+                                                <img src={item.imgUrl} className="historyImage"/>
                                                 <h3>{item.name}</h3>
+                                                </div>
+                                                <div className="deletePriceQuantity">
                                                 <div>Quantity: {cart[item.id]}</div>
-                                                <div> Price: {(item.price * cart[item.id]) / 100}</div>
-                                                <Button variant="outlined" onClick={() => this.handleRemoveItem(item.id, index)}>Delete</Button>
+                                                <div> Price: ${parseFloat((item.price * cart[item.id]) / 100).toFixed(2)}</div>
+                                                <Button style={{alignSelf: "baseline"}} variant="outlined" onClick={() => this.handleRemoveItem(item.id, index)}>Remove From Cart</Button>
+                                                </div>
                                             </div>
                                         )
                                     })}

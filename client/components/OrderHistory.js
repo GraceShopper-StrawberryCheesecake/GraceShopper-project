@@ -39,14 +39,14 @@ export default class OrderHistory extends Component {
                   </div>
                   <div className="quantityAndPrice">
                   <div>Quantity: {item.orderItem.quantity} </div>
-                  <div>Price: {item.price * item.orderItem.quantity / 100} </div>
+                  <div>Price: ${parseFloat(item.price * item.orderItem.quantity / 100).toFixed(2)} </div>
                   </div>
                   </div>
                 </div>
               )
             })}
             <div id="total">
-            Total: {sum/100}
+            Total: ${parseFloat(sum/100).toFixed(2)}
             </div>
           </div>
         )

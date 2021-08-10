@@ -311,6 +311,7 @@ textarea[name="description"] {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  width: 800px;
 }
 
 .quantityAndPrice div{
@@ -325,4 +326,14 @@ textarea[name="description"] {
 .imageAndName {
   display: flex;
   align-items: baseline;
+}
+
+.deletePriceQuantity {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deletePriceQuantity div {
+  margin-right: 30px;
+  align-self: baseline;
 }
