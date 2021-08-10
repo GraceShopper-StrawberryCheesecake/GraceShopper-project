@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleCustomer } from '../store/singleCustomer'
+import { Button } from '@material-ui/core'
 import { me } from '../store'
 import axios from 'axios'
 
@@ -36,8 +37,9 @@ class SingleCustomer extends React.Component {
                     <div className="singleCustomerInfo">
                         <div>{customer.name}</div>
                         <div>{customer.email}</div>
-                        <button onClick={() => this.handleView(customer.id)}>Update</button>
-                        {isAdmin && <button onClick={() => this.handleDelete(customer.id)}>Delete</button>}
+                        <Button variant="outlined" onClick={() => this.handleView(customer.id)}>Update</Button>
+                        <Button variant="outlined" onClick={() => {this.props.history.push(`/orderHistory/${customer.id}`)}}>View Order History</Button>
+                        {isAdmin && <Button variant="outlined" onClick={() => this.handleDelete(customer.id)}>Delete</Button>}
                     </div>
                 ) : (null)}
 

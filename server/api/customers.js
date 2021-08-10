@@ -76,3 +76,29 @@ router.get('/:customerId/cart', async (req, res, next) => {
   }
 })
 
+router.get('/:id/orderHistory', requireToken, async (req, res, next) => {
+
+  try {
+    if(req.customer.isAdmin) {
+      const order = await Order.findAll({
+        where: {
+          orderComplete: true,
+          customerId: parseInt(req.params.id)
+        },
+        include: {model: Item}
+      })
+      res.send(order)
+    } else {
+      const order = await Order.findAll({
+        where: {
+          orderComplete: true,
+          customerId: parseInt(req.customer.id)
+        },
+        include: {model: Item}
+      })
+      res.send(order)
+    }
+  } catch (error) {
+    next(error)
+  }
+})

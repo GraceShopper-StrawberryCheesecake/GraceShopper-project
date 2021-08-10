@@ -28,7 +28,16 @@ const Item = db.define('item', {
       type: Sequelize.INTEGER,
       min: 0,
       defaultValue: 0
+  },
+
+  type: {
+    type: Sequelize.STRING,
+    validate: {
+      isIn: [[ 'Karmel', 'Vegan', 'Chocolate', 'Fruits']]
+    },
+    defaultValue: 'Vegan'
   }
+
 })
 
 module.exports = Item

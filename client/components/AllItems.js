@@ -6,21 +6,29 @@ import { updateOrder } from '../store/order'
 import { me } from '../store/auth';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { green } from '@material-ui/core/colors'
 
 
 class AllItems extends React.Component {
     constructor() {
         super()
+        this.state = {
+            items: [],
+            filter: 'all'
+        }
         this.handleDelete = this.handleDelete.bind(this)
         this.handleClick = this.handleClick.bind(this)
         this.addItemToCart = this.addItemToCart.bind(this)
+        this.dropDownButton = this.dropDownButton.bind(this)
+        this.handleChangeFilter = this.handleChangeFilter.bind(this)
     }
-    componentDidMount() {
-        this.props.getItems()
+    async componentDidMount() {
+        await this.props.getItems()
         if(window.localStorage.getItem('token')) {
             this.props.getAuth()
         }
+        this.setState({
+            items: this.props.items
+        })
     }
 
     async handleDelete(id) {
@@ -28,11 +36,40 @@ class AllItems extends React.Component {
         this.props.getItems()
     }
 
+    handleChangeFilter(event) {
+
+        const filter = event.target.value
+        let items = []
+        if (filter === 'all') {
+            items = this.props.items
+        } else {
+            items = this.props.items.filter(item => item.type === filter )
+        }
+        this.setState({
+            items,
+            filter
+        })
+    }
+
+    dropDownButton() {
+        return (
+            <select onChange={this.handleChangeFilter}>
+                <option value="all">All</option>
+                <option value="Karmel">Caramel</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Chocolate">Chocolate</option>
+            </select>
+        )
+    }
+
     render() {
         return (
             <div className="container">
                 <h1>All Items</h1>
-                {this.props.items.map(item => {
+                {this.dropDownButton()}
+                {!this.state.items[0] && <h2>{`There are no ${this.state.filter} cheesecakes!`}</h2>}
+                {this.state.items.map(item => {
                     return(
                         <div key={item.id} className="item" >
                             <img src={item.imgUrl} onClick={() => {this.props.history.push(`/items/${item.id}`)}}/>
