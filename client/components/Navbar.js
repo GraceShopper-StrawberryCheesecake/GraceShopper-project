@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout, updateOrder } from "../store";
+import { sendMail } from "../store/mailer";
 import { syncCartToDataBase } from "../store/order"
 import Cart from "./Cart"
 
@@ -46,6 +47,7 @@ class Navbar extends React.Component {
     }
   }
 
+
   render() {
     const { isLoggedIn, customer } = this.props
 
@@ -62,6 +64,7 @@ class Navbar extends React.Component {
             <div className="nav-links-div">
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
+              <Link to="/items">Products</Link>
               <Link to={`/customers/${customer.id}`}>Account</Link>
               <a href="#" onClick={() => this.handleClick(customer.orders[0].id)}>
                 Logout
@@ -104,7 +107,6 @@ const mapDispatch = (dispatch) => {
     syncCart: (cartId) => dispatch(syncCartToDataBase(cartId)),
     logout: () => dispatch(logout()),
     updateOrder: (order) => dispatch(updateOrder(order))
-
   };
 };
 
