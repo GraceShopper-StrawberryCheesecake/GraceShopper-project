@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export default class OrderHistory extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ export default class OrderHistory extends Component {
   }
 
   async componentDidMount() {
-    const { data } = await axios.get('/api/customers/orders/orderHistory', {headers: {
+    const { data } = await axios.get(`/api/customers/${this.props.match.params.customerId}/orderHistory`, {headers: {
       authorization: window.localStorage.getItem('token')
   }})
   this.setState({
@@ -19,11 +19,10 @@ export default class OrderHistory extends Component {
   }
 
   render() {
-    // console.log(this.state.orders)
     const { orders } = this.state;
-    console.log(orders);
     return (
       <div className="historyContainer">
+        {!orders[0] && <h1 style={{textAlign: 'center'}}>You Haven't Ordered Anything Yet</h1>}
       {orders.map(order => {
         let sum = 0;
         return (
@@ -49,4 +48,3 @@ export default class OrderHistory extends Component {
     )
   }
 }
-
