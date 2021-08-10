@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import {me} from './store'
 import AllItems from './components/AllItems'
@@ -11,19 +10,11 @@ import SingleCustomers from './components/SingleCustomer'
 import UpdateForm from './components/UpdateForm'
 import AddForm from './components/AddForm'
 import Checkout from './components/Checkout';
-import OrderHistory from './components/OrderHistory';
-
-
-function FourOhFour() {
-  return (
-    <h1>Something went wrong 404.</h1>
-  )
-}
 
 /**
  * COMPONENT
  */
-class Routes extends Component {
+class AdminRoutes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
@@ -34,38 +25,19 @@ class Routes extends Component {
 
     return (
       <div>
-        {isLoggedIn ? (
-          <Switch>
+        <Switch>
             <Route path="/home" component={Home} />
-            <Route exact path="/items" component={AllItems} />
-            <Route exact path="/items/:id" component={SingleItem} />
             <Route path="/checkout" component={Checkout}/>
+            <Route exact path="/items" component={AllItems} />
+            <Route path="/item/add" component={AddForm} />
+            <Route exact path="/items/:id" component={SingleItem} />
+            <Route exact path="/items/:itemId/update" component={UpdateForm} />
+            <Route exact path="/customers" component={AllCustomers} />
+            <Route path="/customer/add" component={AddForm} />
             <Route exact path="/customers/:customerId" component={SingleCustomers} />
             <Route exact path="/customers/:customerId/update" component={UpdateForm} />
-            <Route exact path="/orderHistory/:customerId" component={OrderHistory} />
-            {isAdmin ? (
-              <Switch>
-                <Route exact path="/customers" component={AllCustomers} />
-                <Route path="/customer/add" component={AddForm} />
-                <Route path="/item/add" component={AddForm} />
-                <Route exact path="/items/:itemId/update" component={UpdateForm} />
-                <Redirect to="/home" />
-              </Switch>
-            ): (null)}
             <Redirect to="/home" />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path='/' exact component={ Home } />
-            <Route path="/home" component={Home} />
-            <Route exact path="/items" component={AllItems} />
-            <Route exact path="/items/:id" component={SingleItem} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/checkout" component={Checkout}/>
-            <Route path="/*" component={FourOhFour} />
-          </Switch>
-        )}
+        </Switch>
       </div>
     )
   }
@@ -93,4 +65,4 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default withRouter(connect(mapState, mapDispatch)(AdminRoutes))
