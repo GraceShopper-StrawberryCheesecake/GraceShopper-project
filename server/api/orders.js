@@ -8,7 +8,6 @@ router.put('/:id', async (req, res, next) => {
     try {
         let order = await Order.findByPk(req.params.id)
         if(order) {
-          console.log('i fired in api routes') 
           await order.removeItems(await order.getItems())
   
           const items = req.body
@@ -19,13 +18,15 @@ router.put('/:id', async (req, res, next) => {
           }
           res.json(req.body)
         } else {
-          console.log('didnt fire in correct route')
           order = await Order.create({orderComplete: true})
           const items = req.body
           
           for (let itemId in items) {
             let item = await Item.findByPk(itemId)
             order.addItem(item, {through: {price: item.price, quantity: items[itemId]}})
+            
+            let stock = item.quantity - items[itemId]
+            item.update({quantity: stock})
           }
           res.json(req.body)
         }
@@ -56,11 +57,9 @@ router.get('/updateorder/:id', requireToken, async (req, res, next) => {
         }, include: {model: Item}
       })
 
-      console.log(order)
       
       for(let i = 0; i < order.items.length; i++) {
         let stock = order.items[i].quantity - order.items[i].orderItem.quantity
-        console.log(stock)
         await order.items[i].update({quantity: stock})
       }
       
