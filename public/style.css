@@ -273,7 +273,67 @@ textarea[name="description"] {
   margin-right: 10px
 }
 
+.historyContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.orderInfo {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  padding: 0 30px 30px 30px;
+  margin-bottom: 50px;
+}
+
+#total {
+  font-weight: 900;
+  color: red
+}
+
 .checkout-image {
   width: 300px;
 }
 
+#orderNum {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: solid black 1px;
+  padding-bottom: 10px;
+}
+
+.itemContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 800px;
+}
+
+.quantityAndPrice div{
+  margin-right: 10px;
+}
+
+.historyImage {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.imageAndName {
+  display: flex;
+  align-items: baseline;
+}
+
+.deletePriceQuantity {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deletePriceQuantity div {
+  margin-right: 30px;
+  align-self: baseline;
+}

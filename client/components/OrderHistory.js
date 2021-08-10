@@ -27,19 +27,26 @@ export default class OrderHistory extends Component {
         let sum = 0;
         return (
           <div key={order.id} className="orderInfo">
-            <h2>Order #{order.id}</h2>
+            <h2 id="orderNum">Order #{order.id}</h2>
             {order.items.map(item => {
               sum += item.price * item.orderItem.quantity
               return (
                 <div key={item.id}>
+                  <div className="itemContainer">
+                    <div className="imageAndName">
+                    <img className="historyImage" src={item.imgUrl} />
                   <h3>{item.name}</h3>
+                  </div>
+                  <div className="quantityAndPrice">
                   <div>Quantity: {item.orderItem.quantity} </div>
-                  <div>Price: {item.price * item.orderItem.quantity / 100} </div>
+                  <div>Price: ${parseFloat(item.price * item.orderItem.quantity / 100).toFixed(2)} </div>
+                  </div>
+                  </div>
                 </div>
               )
             })}
-            <div>
-            Total: {sum/100}
+            <div id="total">
+            Total: ${parseFloat(sum/100).toFixed(2)}
             </div>
           </div>
         )

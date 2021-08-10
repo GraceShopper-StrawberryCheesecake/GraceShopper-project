@@ -10,6 +10,7 @@ import SingleCustomers from './components/SingleCustomer'
 import UpdateForm from './components/UpdateForm'
 import AddForm from './components/AddForm'
 import Checkout from './components/Checkout';
+import OrderHistory from './components/OrderHistory';
 
 /**
  * COMPONENT
@@ -36,6 +37,7 @@ class AdminRoutes extends Component {
             <Route path="/customer/add" component={AddForm} />
             <Route exact path="/customers/:customerId" component={SingleCustomers} />
             <Route exact path="/customers/:customerId/update" component={UpdateForm} />
+            {/* <Route exact path="/orderHistory" component={OrderHistory} /> */}
             <Redirect to="/home" />
         </Switch>
       </div>
