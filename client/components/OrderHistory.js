@@ -28,7 +28,7 @@ export default class OrderHistory extends Component {
         let sum = 0;
         return (
           <div key={order.id} className="orderInfo">
-            <h2>Order #{order.id}</h2>
+            <h2 id="orderNum">Order #{order.id}</h2>
             {order.items.map(item => {
               sum += item.price * item.orderItem.quantity
               return (
@@ -39,7 +39,7 @@ export default class OrderHistory extends Component {
                 </div>
               )
             })}
-            <div>
+            <div id="total">
             Total: {sum/100}
             </div>
           </div>
