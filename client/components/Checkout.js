@@ -46,13 +46,27 @@ class Checkout extends React.Component {
     }
     
     createEmail(customer) {
+        let sum = 0
+        const { cart, itemsArr } = this.state
         return (`
             <html>
                 <body>
                     Thank you ${customer.name} for your order with us!
+                    <div>
+                    ${itemsArr.map((item) => {
+                        sum = sum + (item.price * cart[item.id])
+                        return (
+                            `<div>
+                                <h3>${item.name}</h3>
+                                <div>Quantity: ${cart[item.id]}</div>
+                                <div> Price: ${(item.price * cart[item.id]) / 100}</div>
+                            </div>`
+                        )
+                    })}
+                        <h2>Total: ${sum / 100} </h2>
+                    </div>
                 </body>
-            </html>
-            `
+            </html>`
         )
     }
 
@@ -119,7 +133,7 @@ class Checkout extends React.Component {
                                         sum = sum + (item.price * cart[item.id])
                                         return (
                                             <div className="ItemInfo" key={item.id}>
-                                                {/* <img src={item.imgUrl}/> */}
+                                                <img src={item.imgUrl} className="checkout-image"/>
                                                 <h3>{item.name}</h3>
                                                 <div>Quantity: {cart[item.id]}</div>
                                                 <div> Price: {(item.price * cart[item.id]) / 100}</div>

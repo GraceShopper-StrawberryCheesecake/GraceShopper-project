@@ -273,4 +273,7 @@ textarea[name="description"] {
   margin-right: 10px
 }
 
+.checkout-image {
+  width: 300px;
+}
 

@@ -53,7 +53,7 @@ export const syncCartToDataBase = (cartId) => {
 
 // this function will merge the cart in the database with the local storage cart
 export const mergeCart = (dbCart) => {
-    console.log('i fired')
+    
     const localOrder = JSON.parse(window.localStorage.getItem('order'));
 
     // we parse the database cart into our order object { itemId: itemQuantity }
