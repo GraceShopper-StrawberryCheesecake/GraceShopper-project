@@ -16,7 +16,7 @@ export const fetchItems = () => {
             const { data } = await axios.get("/api/items")
             dispatch(_setItems(data))
         } catch (error) {
-            console.log('connot get items')            
+            console.log('cannot get items')            
         }
     }
 }

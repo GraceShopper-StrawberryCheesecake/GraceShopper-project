@@ -99,7 +99,6 @@ class Checkout extends React.Component {
         let order = this.state.cart;
         delete order[itemId];
         window.localStorage.setItem("order", JSON.stringify(order));
-        console.log("LOCAL STORAGE ORDER ", order)
         this.props.updateOrder(order)
 
         this.state.isLoggedIn && this.props.syncCart(this.props.customer.orders[0].id)
