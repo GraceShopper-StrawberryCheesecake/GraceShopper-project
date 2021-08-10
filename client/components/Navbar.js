@@ -55,7 +55,9 @@ class Navbar extends React.Component {
           <Link to="/home">
           <img src="/cheesecakeIcon2.svg" />
           </Link>
+          <Link to="/home">
           <h1>Chaotic Cheesecake</h1>
+          </Link>
         </div>
         <nav>
           {isLoggedIn ? (

@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=MonteCarlo&display=swap");
+
 @keyframes slideInFromRight {
   0% {
     transform: translateX(100%);
@@ -13,6 +15,7 @@
 
 body {
   font-family: "Montserrat", sans-serif;
+  margin: 0;
 }
 
 a {
@@ -34,7 +37,7 @@ label {
 .logo img {
   position: fixed;
   width: 80px;
-  transform: translateY(-50px);
+  transform: translateY(-48px);
   z-index: 1;
 }
 
@@ -132,7 +135,7 @@ form div {
   border: solid black 2px;
   margin-right: 20px;
   border-radius: 3%;
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
   z-index: 1;
   background-color: white;
 }
@@ -270,7 +273,40 @@ textarea[name="description"] {
 }
 
 #cart-total h3 {
-  margin-right: 10px
+  margin-right: 10px;
 }
 
+#hero {
+  width: 100%;
+  position: relative;
+}
 
+#background-video {
+  width: 100%;
+}
+
+#hero-banner {
+  font-family: "MonteCarlo", cursive;
+  z-index: 1;
+  position: fixed;
+  color: white;
+  top: 37px;
+  left: 50%;
+  transform: translateX(-48%);
+  font-size: 14vw;
+  width: 100%;
+}
+
+#hero-button {
+  z-index: 1;
+  position: absolute;
+  top: 57%;
+  right: 10%;
+  background-color: white;
+  border: solid white 2px;
+  border-radius: 5px;
+  color: rgb(151, 20, 20);
+  padding: 30px;
+  cursor: pointer;
+  font-size: 3vw;
+}
