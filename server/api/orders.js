@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { Customer, Order, Item }} = require('../db')
+const { models: { Customer, Order, Item, OrderItem }} = require('../db')
 const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 module.exports = router
 
@@ -49,9 +49,22 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/updateorder/:id', requireToken, async (req, res, next) => {
   try {
-      const order = await Order.findByPk(req.params.id)
-      await order.update({orderComplete: true})
+      // const order = await Order.findByPk(req.params.id, )
+      const order = await Order.findOne({
+        where: {
+          id: req.params.id
+        }, include: {model: Item}
+      })
 
+      console.log(order)
+      
+      for(let i = 0; i < order.items.length; i++) {
+        let stock = order.items[i].quantity - order.items[i].orderItem.quantity
+        console.log(stock)
+        await order.items[i].update({quantity: stock})
+      }
+      
+      await order.update({orderComplete: true})
       const newOrder = await Order.create()
       await req.customer.addOrder(newOrder)
       

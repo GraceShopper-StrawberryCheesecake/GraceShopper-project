@@ -81,7 +81,7 @@ class Checkout extends React.Component {
     async handleClick() {
         if(this.state.isLoggedIn) {
             this.sendMail(this.props.customer)
-            this.props.syncCart(this.props.customer.orders[0].id)
+            await this.props.syncCart(this.props.customer.orders[0].id)
             await axios.get(`/api/orders/updateorder/${this.props.customer.orders[0].id}`, {
                 headers: {
                     authorization: window.localStorage.getItem('token')
