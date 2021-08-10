@@ -5,6 +5,7 @@ router.use('/customers', require('./customers'))
 router.use('/items', require('./items'))
 router.use('/orders', require('./orders'))
 router.use('/sendMail', require('./mailer/index'))
+router.use('/create-payment-intent', require('./payment/stripe'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
