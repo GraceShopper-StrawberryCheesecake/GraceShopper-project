@@ -15,7 +15,6 @@ const _sendMail = (result) => ({
 export const sendMail = (email, content) => {
     return async dispatch => {
         try {
-            console.log("THIS IS THE CONTENT", content)
             const { data } = await axios.post(`/api/sendMail`, { email, content })
             dispatch(_sendMail(data))
         } catch (err) {

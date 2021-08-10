@@ -63,7 +63,6 @@ Customer.authenticate = async function({ email, password }){
 
 Customer.findByToken = async function(token) {
   try {
-    console.log("TOKEN IN Customer.js: ", token)
     const {id} = await jwt.verify(token, process.env.JWT)
     const customer = Customer.findByPk(id, {
       include: {

@@ -4,7 +4,6 @@ const transporter = require('./transporter')
 
 router.post("/", function (req, res) {
 
-    console.log("API/SENDMAIL REQ.BODY: ", req.body.email)
 
     let mailOptions = {
       from: "no-reply@Chaotic-Cheesecake.com",
