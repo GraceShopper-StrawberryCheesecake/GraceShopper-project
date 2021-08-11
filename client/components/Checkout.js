@@ -116,7 +116,7 @@ class Checkout extends React.Component {
         //total sum to be calculated
         let sum = 0
         return(
-            <div>
+            <div id="order-div">
                 <h1>Your Order</h1>
                 {isCheckedOut ? (
                 //thank you page

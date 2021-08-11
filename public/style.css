@@ -50,6 +50,10 @@ label {
   margin-left: 90px;
 }
 
+#welcome-message {
+  margin-left: 30px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -285,7 +289,6 @@ textarea[name="description"] {
   width: 100%;
 }
 
-
 #hero-banner {
   font-family: "MonteCarlo", cursive;
   z-index: 1;
@@ -313,6 +316,7 @@ textarea[name="description"] {
 }
 
 .historyContainer {
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -331,11 +335,15 @@ textarea[name="description"] {
 
 #total {
   font-weight: 900;
-  color: red
+  color: red;
 }
 
 .checkout-image {
   width: 300px;
+}
+
+#order-div {
+  margin-left: 40px;
 }
 
 #orderNum {
@@ -353,7 +361,7 @@ textarea[name="description"] {
   width: 800px;
 }
 
-.quantityAndPrice div{
+.quantityAndPrice div {
   margin-right: 10px;
 }
 
@@ -375,4 +383,12 @@ textarea[name="description"] {
 .deletePriceQuantity div {
   margin-right: 30px;
   align-self: baseline;
+}
+
+.add-to-cart {
+  background-color: white;
+  border: solid gray 1px;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px
 }

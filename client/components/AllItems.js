@@ -66,7 +66,7 @@ class AllItems extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>All Items</h1>
+                <h1>Products</h1>
                 {this.dropDownButton()}
                 {!this.state.items[0] && <h2>{`There are no ${this.state.filter} cheesecakes!`}</h2>}
                 {this.state.items.map(item => {
@@ -75,14 +75,14 @@ class AllItems extends React.Component {
                             <img src={item.imgUrl} onClick={() => {this.props.history.push(`/items/${item.id}`)}}/>
                             <div className="content">
                                 <Link to={`/items/${item.id}`}><h2>{item.name}</h2></Link>
-                                <h3>item description</h3>
+                                {/* <h3>item description</h3> */}
                                 <div className="description">{item.description}</div>
                                 <div>Price: ${parseFloat(item.price/100).toFixed(2)}</div>
                                 {item.quantity > 0 ? (
                                     <div id="stock">
                                         <div style={ {color: 'green'}}>In Stock</div>
                                         {/* <Button variant="outlined">add to cart</Button> */}
-                                        <button value={item.id} onClick={(event) => this.handleClick(event, item.quantity)}>Add to cart</button>
+                                        <button className="add-to-cart" value={item.id} onClick={(event) => this.handleClick(event, item.quantity)}>Add to cart</button>
                                         {this.props.isAdmin ? (
                                             <Button color="secondary" variant="outlined" onClick={() => this.handleDelete(item.id)}>Delete</Button>
                                         ) : (null)}
