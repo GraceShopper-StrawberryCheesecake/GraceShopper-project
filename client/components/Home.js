@@ -12,8 +12,8 @@ export const Home = (props) => {
   return (
     <div>
       {name && (
-        <h3>
-          Welcome, {name}!{" "}
+        <h3 id="welcome-message">
+          Welcome, {name} !
           {props.auth.isAdmin ? (
             <div>What changes would you like to make?</div>
           ) : null}

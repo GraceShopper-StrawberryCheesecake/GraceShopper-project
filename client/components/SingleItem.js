@@ -69,7 +69,7 @@ class SingleItem extends React.Component {
           </p>
           <div id="price-and-button">
           <p> price: $ {item.price/100}</p>
-          <button value={item.id} onClick={(event) => this.handleClickAdditem(event, item.quantity)}>Add to cart</button>
+          <button className="add-to-cart" value={item.id} onClick={(event) => this.handleClickAdditem(event, item.quantity)}>Add to cart</button>
           {this.props.isAdmin ? (
             <React.Fragment>
               <Button onClick={() => this.handleClick(item.id)}variant="outlined" color="primary">Update Info</Button>
